@@ -1,0 +1,242 @@
+  /* container styling */
+  .financing-section {
+    font-family: sans-serif;
+    max-width: 1440px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem;
+  }
+  /* Styles for every a tag or link in the section */
+  .financing-section a{
+    text-decoration: none;
+    color: #0a6282;
+    font-weight: 600;
+  }
+  /* Styles for every a tag or link in the section when hovered */
+  .financing-section a:hover{
+    color: #d6a80e;
+  }
+
+  /* These are the styles for the info main container where displays the 12-60 yellow outline block and the 6 blue background block */
+  .synchrony-info {
+    width: 100%;
+    border-radius: 1.2rem;
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+  /* This let the top imge to be on top of the container outline with position absolute */
+  .info__top-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  /* This class defines the grid layout for the information in the block */
+  .info__container {
+    padding: 5%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: fit-content(100%);
+  }
+  /* Set a yellow outline around the block */
+  .yellow-outline {
+    outline: #fac40b solid 0.2rem;
+    outline-offset: -0.2rem;
+  }
+  /* set color blue for every blue text in the page */
+  .text-blue {
+    color: #0a6282;
+  }
+  /* Set the background color for the blue block */
+  .blue-background {
+    background-color: #0a6282;
+    color: #fff;
+  }
+  /* Styales for headers section on top of yellow out and blue back blocks */
+  .info-header {
+    font-size: 1.6rem;
+    height: 100%;
+    margin-top: 1rem;
+    margin-bottom: 0.6rem;
+    grid-row: 1/2;
+    font-weight: 700;
+  }
+  /* This class sets padding, radius and grid position for the big number blocks */
+  .info-content {
+    border-radius: 1.2rem;
+    padding: 1rem;
+    grid-row: 2/3;
+    /* height: 100%; */
+  }
+  /* This makes the styles for the large numbers in the blocks */
+  .content__l-number {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 1rem;
+  }
+  /* This makes the styles for the months in the blocks */
+  .content__months {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  /* This are the styles fot the container that starts with Benefits of the Sybrony home */
+  .synchrony-benefits {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: fit-content(100%) 2fr;
+    font-size: 0.9rem;
+  }
+  /* Large lettering in the benefits container */
+  .benefits__header {
+    margin-top: 0;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    font-size: 1.6rem;
+  }
+  /* Set styles for those text with blue bold text */
+  .blod-blue {
+    color: #0a6282;
+    font-weight: 700;
+  }
+  /* These are the items that list the conditions for financing */
+  .benefits__list {
+    grid-column: 2/4;
+    grid-row: 1/3;
+  }
+  /* This class display in two columns the list of benefits */
+  .two-columns {
+    columns: 2; 
+    column-gap: 3em;
+  }
+  /* Set styles for the image in the benefits container */
+  .synchrony-benefits img {
+    grid-column: 1/4;
+    grid-row: 2/3;
+  }
+  /* Set the stiles for the element at the bottom of the benefits section in a grey font */
+  .credit-approval {
+    font-size: 0.8rem;
+    margin-inline: 3rem;
+    color: #777777;
+  }
+  /* Styles for the section with blue background and whit call to action that says "APPLY NOW" */
+  .synchrony-manage-account {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+  .manage-account__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 4rem;
+    margin: auto;
+  }
+  .manage-account__info {
+    max-width: 40rem;
+    margin-right: 2rem;
+    display: block;
+  }
+  .manage-account__info p:last-child {
+    margin: 0;
+  }
+  .yellow-bold {
+    font-weight: 700;
+    color: #fac40b;
+  }
+  /* Styles for the call to action in the Manage block */
+  .manage-account__c2a a{
+    display: block;
+    width: max-content;
+    text-align: center;
+    border: solid 0.2rem #fff;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-weight: 500;
+  }
+  /* hover Styles for the call to action in the Manage block */
+  .manage-account__c2a a:hover {
+    background-color: #fff;
+    color: #0a6282;
+  }
+  /* This class set the light blue background for every item in the qa section at the bottom oth the page */
+  .light-blue-background {
+    background-color: #deedef;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+  }
+  .f-desktop {
+    width: 100%;
+    display: block;
+  }
+  .f-mobile {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .financing-section {
+      gap: 3rem;
+    }
+    .f-desktop {
+      display: none;
+    }
+    .f-mobile {
+      display: block;
+      width: 100%;
+    }
+    .info__container {
+      grid-template-columns: 1fr;
+      grid-auto-flow: column;
+    }
+    
+    .info-header {
+      grid-column: 1/2;
+      grid-row: auto;
+    }
+    .info-content {
+      grid-column: 1/2;
+      grid-row: auto;
+    }
+    .synchrony-benefits {
+      grid-template-columns: 1fr;
+      grid-template-rows: fit-content(100%);
+
+
+    }
+    .benefits__header {
+      grid-column: 1/2;
+      grid-row: auto;
+    }
+    .benefits__list {
+      grid-column: 1/2;
+      grid-row: auto;
+    }
+    .synchrony-benefits img {
+      grid-column: 1/2;
+      grid-row: auto;
+    }
+    .two-columns {
+      columns: 1;
+    }
+    .credit-approval {
+      text-align: center;
+    }
+    .manage-account__container {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 4rem;
+    }
+    .manage-account__container > * {
+      margin: 0;
+    }
+  }
+
