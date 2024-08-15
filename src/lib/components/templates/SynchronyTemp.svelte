@@ -8,14 +8,10 @@
 		synchronyCss,
 		viewSelector,
 		epicProtecHtml
-
 	} from '$lib/components/templates/templates-stores';
 	import { textSelect, injectCss } from './shared-functions';
 	import TemplateRender from '$lib/components/templates/TemplateRender.svelte';
-  import ViewSelector from '../ViewSelector.svelte';
-
-
-
+	import ViewSelector from '../ViewSelector.svelte';
 
 	let example = 'E.g.: ';
 	let synchOrgInit = 'SUNRISE APPLIANCE';
@@ -26,9 +22,10 @@
 	import { onMount } from 'svelte';
 	onMount(() => {
 		injectCss(synchronyCss);
+		if ($viewSelector === 'js') {
+			$viewSelector = 'liveView';
+		}
 	});
-
-
 </script>
 
 <section class="synchrony-template template-section">
@@ -69,20 +66,20 @@
 			<input type="text" id="synchUrlCode" bind:value={$synchUrlCode} on:focus={textSelect} />
 		</div>
 	</form>
-  <ViewSelector />
+	<ViewSelector />
 
 	<section class="template-viewer">
-  {#if $viewSelector === 'liveView'}
-		<div style="background-color: white;">{@html $synchronyHtml}</div>
-    {:else if $viewSelector === 'html'}
-		<TemplateRender htmlCode={$synchronyHtml}  />
-    {:else if $viewSelector === 'css'}
-		<TemplateRender cssCode={synchronyCss} />
-  {/if}
+		{#if $viewSelector === 'liveView'}
+			<div style="background-color: white;">{@html $synchronyHtml}</div>
+		{:else if $viewSelector === 'html'}
+			<TemplateRender htmlCode={$synchronyHtml} />
+		{:else if $viewSelector === 'css'}
+			<TemplateRender cssCode={synchronyCss} />
+		{/if}
 	</section>
 </section>
 
-<style>
+<style global>
 	.template-viewer {
 		max-height: 80svh;
 		overflow-y: scroll;

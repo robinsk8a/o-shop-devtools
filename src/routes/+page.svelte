@@ -2,31 +2,60 @@
 	import SynchronyTemp from '$lib/components/templates/SynchronyTemp.svelte';
 	import EpicProtectTemp from '$lib/components/templates/EpicProtectTemp.svelte';
 	import { activeTool } from '$lib/components/templates/templates-stores';
-
 </script>
 
-
-<h1>{$activeTool}</h1>
 <div class="body">
 	<nav class="side-bar">
 		<h3 class="side-bar--greetings">Greetings Tigers</h3>
 		<ul class="menu">
 			<li class="cat-menu">
-				<button>templates</button>
+				<button
+					class={$activeTool === 'synchrony-template' || $activeTool === 'epic-protect-template'
+						? 'active'
+						: ''}>templates</button
+				>
 				<ul class="sub-menu">
-					<li><button class="synchrony-template" on:click={$activeTool.set('synchrony-template')}>Synchrony</button></li>
-					<li><button class="epic-protect-template" on:click={$activeTool.set('epic-protect-template')}>Epic Protect</button></li>
+					<li>
+						<button
+							class={$activeTool === 'synchrony-template' ? 'active' : ''}
+							on:click={() => ($activeTool = 'synchrony-template')}>Synchrony</button
+						>
+					</li>
+					<li>
+						<button
+							class={$activeTool === 'epic-protect-template' ? 'active' : ''}
+							on:click={() => ($activeTool = 'epic-protect-template')}>Epic Protect</button
+						>
+					</li>
 				</ul>
 			</li>
 			<li class="cat-menu">
 				<button>Utilities</button>
 				<ul class="sub-menu">
 					<li>
-						<button on:click={$activeTool.set('synchrony-template')}>Video / Embed generator</button
+						<button>Video / Embed generator</button
 						>
 					</li>
 					<li>
-						<button on:click={() => $activeTool.set('epic-protect-template')}>Galery generator</button>
+						<button>Galery generator</button
+						>
+					</li>
+					<li>
+						<button>Nav Coloring</button
+						>
+					</li>
+				</ul>
+			</li>
+			<li class="cat-menu">
+				<button>Hack-kind</button>
+				<ul class="sub-menu">
+					<li>
+						<button>Service Fixes</button
+						>
+					</li>
+					<li>
+						<button>Highlights Fixes</button
+						>
 					</li>
 				</ul>
 			</li>
@@ -36,7 +65,6 @@
 		</div>
 	</nav>
 	<main class="main">
-		<h1>Tiger Team tools.</h1>
 		{#if $activeTool === 'synchrony-template'}
 			<SynchronyTemp />
 		{:else if $activeTool === 'epic-protect-template'}
@@ -51,20 +79,28 @@
 		margin: 0;
 		padding: 0;
 	}
-	:global(body) {
-		background-color: #a7cece;
-		font-family: 'roboto', sans-serif;
-	}
 	:global(:root) {
 		--backgorund-color: #a7cece;
 		--side-bar-color: #196c72;
 		--side-bar-button-color: #077575;
-		--side-bar-button-color-active: #1d91a0;
-		--side-bar-button-color-hover: #12b1a9;
-		--side-bar-button-color-active-hover: #19484e;
-		--side-bar-button-color-hover-active: #1a4e55;
-		--side-bar-button-color-active-hover-active: #19484e;
-		--side-bar-accent-color: #76c2be;
+		--side-bar-button-color-active: #049257;
+		--main-button-color: #12b1a9;
+		--main-button-color-hover: #19484e;
+		--main-button-color-active: #06c5df;
+	}
+	:global(body) {
+		background-color: var(--backgorund-color);
+		font-family: 'roboto', sans-serif;
+	}
+	:global(button) {
+		border: none;
+		background-color: var(--main-button-color);
+		color: white;
+		padding: 0.5rem 1rem;
+		border-radius: 0.5rem;
+		font-size: 1rem;
+		text-align: center;
+		cursor: pointer;
 	}
 
 	@keyframes sideJump {
@@ -135,6 +171,9 @@
 		padding-left: 2rem;
 		border-radius: 0.4rem;
 	}
+	.side-bar .active {
+		background-color: var(--side-bar-button-color-active);
+	}
 	.downloads {
 		margin-top: auto;
 		margin-bottom: 2rem;
@@ -150,4 +189,8 @@
 			animation: sideJump 0.2s ease-in-out;
 		}
 	}
+
+
+	
 </style>
+

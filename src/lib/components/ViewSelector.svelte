@@ -11,3 +11,13 @@
   <button on:click={() => viewSelector.set('js')}>JS</button>
   {/if}
 </div>
+
+<style>
+  .view-selector {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-block: 0.5rem;
+  }
+</style>

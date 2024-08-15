@@ -1,3 +1,4 @@
+import { writable } from "svelte/store";
 
 /**
  * Selects the entire text in a text input field.
@@ -26,11 +27,16 @@ export function injectCss(css) {
  * @param {string} js - The JavaScript string to be injected.
  * @return {void}
  */
-export function injectJs(js) {
-  const script = document.createElement('script');
-  script.textContent = js;
-  document.body.appendChild(script);
-}
+export const injectJs = function(js) {
+      const scriptId = 'dynamic-js-' + btoa(js).substring(0, 8);
+      let existingScript = document.getElementById(scriptId);
+      if (!existingScript) {
+        const script = document.createElement('script');
+        script.id = scriptId;
+        script.textContent = js;
+        document.body.appendChild(script);
+      }
+    }
 
 /**
  * Removes HTML, CSS and JavaScript comments from a string.
