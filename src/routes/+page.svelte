@@ -34,10 +34,10 @@
 			<li class="cat-menu">
 				<button>Utilities</button>
 				<ul class="sub-menu">
-					<li>
+					<li class="non-active">
 						<button>Video / Embed generator</button>
 					</li>
-					<li>
+					<li class="non-active">
 						<button>Galery generator</button>
 					</li>
 					<li>
@@ -51,10 +51,10 @@
 			<li class="cat-menu">
 				<button>Hack-kind</button>
 				<ul class="sub-menu">
-					<li>
+					<li class="non-active">
 						<button>Service Fixes</button>
 					</li>
-					<li>
+					<li class="non-active">
 						<button>Highlights Fixes</button>
 					</li>
 				</ul>
@@ -137,6 +137,7 @@
 		color: white;
 		font-size: 1.4rem;
 		font-weight: 500;
+		overflow-x: hidden;
 	}
 	.side-bar--greetings {
 		font-size: 2rem;
@@ -200,6 +201,9 @@
 		&:hover {
 			background-color: var(--side-bar-accent-color-hover);
 		}
-
+	}
+	.non-active button {
+		background-color: grey;
+		color: #cfcfcf;
 	}
 </style>
