@@ -8,8 +8,6 @@
 		item: `{"color":"#444",":hover":{"border":"none","background-color":"#EEE"},"padding":"0.4rem 1rem","font-weight":"400","background-color":"#FFF"}`,
 		header: `{"color":"${textColor}",":hover":{"border":"none","border-radius":"0","background-color":"${hovColor}"},"border":"none","padding":"0.5rem 2rem","margin-block":"0","background-color":"${primColor}"}`
 	};
-
-	$: console.log(typeof(navbars.container));
 </script>
 
 <section class="nav-coloring">
