@@ -4,20 +4,20 @@
 		Is important to download the images from this folder because it is requiiered that they have the
 		same name as the template...
 	</p>
-	<p>
+	<!-- <p>
 		Here you will find native download linsk (The same used for this website construction) and One
 		drive links
-	</p>
+	</p> -->
 
 	<div class="template-links">
-		<div class="template-link">
-			<a href="static/images/synchrony" download="synchrony-images.zip"
+		<!-- <div class="template-link">
+			<a href="/images/synchrony" download="synchrony-images.zip"
 				>Synchrony Images and files</a
 			>
 			<a href="static/images/epic-protection-plans" download="epic-protect-images.zip"
 				>Epic Protect Images and files</a
 			>
-		</div>
+		</div> -->
 		<div class="template-link">
 			<a
 				href="https://nationwidegroup-my.sharepoint.com/:f:/g/personal/david_abril_nationwidegroup_org/EqmT5nypJ0RHi3fSmuqTChIB6y-le7gCcGUq1x6vlcgylg?e=EBxkyL"
@@ -51,9 +51,9 @@
 		font-weight: 700;
 	}
 	.template-links {
-    width: 100%;
+		width: 100%;
 		display: flex;
-    justify-content: start;
+		justify-content: start;
 		gap: 6rem;
 		margin-left: 2rem;
 		font-size: 1.4rem;
