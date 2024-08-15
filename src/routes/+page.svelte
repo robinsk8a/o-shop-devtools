@@ -3,6 +3,7 @@
 	import EpicProtectTemp from '$lib/components/templates/EpicProtectTemp.svelte';
 	import { activeTool } from '$lib/components/templates/templates-stores';
 	import NavColoring from '$lib/components/utilities/NavColoring.svelte';
+	import Downloads from '$lib/components/templates/Downloads.svelte';
 </script>
 
 <div class="body">
@@ -60,7 +61,7 @@
 			</li>
 		</ul>
 		<div class="downloads">
-			<a href="/downloads">Downloads</a>
+			<button on:click={() => ($activeTool = 'downloads')}>Downloads</button>
 		</div>
 	</nav>
 	<main class="main">
@@ -70,6 +71,8 @@
 			<EpicProtectTemp />
 		{:else if $activeTool === 'nav-coloring'}
 			<NavColoring />
+		{:else if $activeTool === 'downloads'}
+			<Downloads />
 		{/if}
 	</main>
 </div>
@@ -85,6 +88,8 @@
 		--side-bar-color: #196c72;
 		--side-bar-button-color: #077575;
 		--side-bar-button-color-active: #049257;
+		--side-bar-accent-color: #0bbe56;
+		--side-bar-accent-color-hover: #0bbeb5;
 		--main-button-color: #12b1a9;
 		--main-button-color-hover: #19484e;
 		--main-button-color-active: #06c5df;
@@ -175,19 +180,26 @@
 	.side-bar .active {
 		background-color: var(--side-bar-button-color-active);
 	}
+	.main {
+		padding: 2rem;
+	}
 	.downloads {
 		margin-top: auto;
 		margin-bottom: 2rem;
 		background-color: var(--side-bar-accent-color);
-		padding: 1rem 2rem;
-		& > a {
-			display: block;
+		& > button {
+			background-color: transparent;
 			color: hsl(var(--side-bar-color), 0.2);
 			width: 100%;
 			height: 100%;
+			padding: 1rem 2rem;
+			border-radius: 0;
+			font-size: 1.4rem;
+			font-weight: 800;
 		}
-		& > a:hover {
-			animation: sideJump 0.2s ease-in-out;
+		&:hover {
+			background-color: var(--side-bar-accent-color-hover);
 		}
+
 	}
 </style>
