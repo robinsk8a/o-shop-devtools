@@ -42,7 +42,7 @@
 	});
 </script>
 
-<section class="synchrony-template template-section">
+<section class="epic-protect-template template-section">
 	<form class="synchrony-form temp-form">
 		<div class="temp-item">
 			<label for="synchImagesLink">Epic Protection Plan Images Link</label>
@@ -60,15 +60,17 @@
 
 	<ViewSelector optJs={true} />
 
-	{#if $viewSelector === 'liveView'}
-		<div style="background-color: white;">{@html $epicProtecHtml}</div>
-	{:else if $viewSelector === 'html'}
-		<TemplateRender htmlCode={$epicProtecHtml} />
-	{:else if $viewSelector === 'css'}
-		<TemplateRender cssCode={$epicProtecCss} />
-	{:else if $viewSelector === 'js'}
-		<TemplateRender jsCode={epicProtecJs} />
-	{/if}
+	<section class="template-viewer">
+    {#if $viewSelector === 'liveView'}
+      <div style="background-color: white;">{@html $epicProtecHtml}</div>
+    {:else if $viewSelector === 'html'}
+      <TemplateRender htmlCode={$epicProtecHtml} />
+    {:else if $viewSelector === 'css'}
+      <TemplateRender cssCode={$epicProtecCss} />
+    {:else if $viewSelector === 'js'}
+      <TemplateRender jsCode={epicProtecJs} />
+    {/if}
+  </section>
 </section>
 
 <style>
