@@ -15,7 +15,7 @@
 
 	let example = 'E.g.: ';
 	let synchOrgInit = 'SUNRISE APPLIANCE';
-	let synchImgInit = 'https://cdn.nmg-platform.com/grayfurniture/media/synchrony/';
+	let synchImgInit = 'https://cdn.nmg-platform.com/grayfurniture/media/synchrony';
 	let synchLocInit = '/hickory-nc';
 	let synchOptInit = '/mmc/NS225154900';
 
@@ -50,6 +50,7 @@
 					id="synchImagesLink"
 					bind:value={$synchImagesLink}
 					on:focus={textSelect}
+					on:blur={(event) => (event.target.value.trim() === "" ? $synchImagesLink = "images/synchrony" : $synchImagesLink)}
 				/>/landing_heroSYNC.webp
 			</p>
 		</div>

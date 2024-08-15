@@ -2,6 +2,7 @@
 	import SynchronyTemp from '$lib/components/templates/SynchronyTemp.svelte';
 	import EpicProtectTemp from '$lib/components/templates/EpicProtectTemp.svelte';
 	import { activeTool } from '$lib/components/templates/templates-stores';
+	import NavColoring from '$lib/components/utilities/NavColoring.svelte';
 </script>
 
 <div class="body">
@@ -33,15 +34,15 @@
 				<button>Utilities</button>
 				<ul class="sub-menu">
 					<li>
-						<button>Video / Embed generator</button
-						>
+						<button>Video / Embed generator</button>
 					</li>
 					<li>
-						<button>Galery generator</button
-						>
+						<button>Galery generator</button>
 					</li>
 					<li>
-						<button>Nav Coloring</button
+						<button
+							class={$activeTool === 'nav-coloring' ? 'active' : ''}
+							on:click={() => ($activeTool = 'nav-coloring')}>Nav Coloring</button
 						>
 					</li>
 				</ul>
@@ -50,12 +51,10 @@
 				<button>Hack-kind</button>
 				<ul class="sub-menu">
 					<li>
-						<button>Service Fixes</button
-						>
+						<button>Service Fixes</button>
 					</li>
 					<li>
-						<button>Highlights Fixes</button
-						>
+						<button>Highlights Fixes</button>
 					</li>
 				</ul>
 			</li>
@@ -69,6 +68,8 @@
 			<SynchronyTemp />
 		{:else if $activeTool === 'epic-protect-template'}
 			<EpicProtectTemp />
+		{:else if $activeTool === 'nav-coloring'}
+			<NavColoring />
 		{/if}
 	</main>
 </div>
@@ -189,8 +190,4 @@
 			animation: sideJump 0.2s ease-in-out;
 		}
 	}
-
-
-	
 </style>
-

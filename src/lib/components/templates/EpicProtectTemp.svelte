@@ -11,7 +11,7 @@
 	import TemplateRender from '$lib/components/templates/TemplateRender.svelte';
 	import ViewSelector from '../ViewSelector.svelte';
 	let example = 'E.g.: ';
-	let synchImgInit = 'https://cdn.nmg-platform.com/grayfurniture/media/epic-protection-plan/';
+	let synchImgInit = 'https://cdn.nmg-platform.com/neeleyappliance/epic-protect-plans';
 	import { onMount } from 'svelte';
 
 
@@ -53,6 +53,7 @@
 					id="synchImagesLink"
 					bind:value={$epicProImg}
 					on:focus={textSelect}
+					on:blur={(event) => (event.target.value.trim() === "" ? $epicProImg = "images/epic-protection-plans" : $epicProImg)}
 				/>/epic-logo.webp
 			</p>
 		</div>

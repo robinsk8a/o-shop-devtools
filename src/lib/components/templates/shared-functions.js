@@ -54,3 +54,12 @@ export function removeComments(text) {
     
     return text;
 }
+
+/**
+ * Sets the value of a variable to a default value if the target's value is an empty string.
+ *
+ * @param {Event} event - The event object.
+ * @param {any} default - The default value.
+ * @return {void}
+ */
+
