@@ -4,6 +4,7 @@
 	import { activeTool } from '$lib/components/templates/templates-stores';
 	import NavColoring from '$lib/components/utilities/NavColoring.svelte';
 	import Downloads from '$lib/components/templates/Downloads.svelte';
+	import ServicesHack from '$lib/components/hack/ServicesHack.svelte';
 </script>
 
 <div class="body">
@@ -31,6 +32,7 @@
 					</li>
 				</ul>
 			</li>
+			<!-- Utilities -->
 			<li class="cat-menu">
 				<button>Utilities</button>
 				<ul class="sub-menu">
@@ -48,11 +50,12 @@
 					</li>
 				</ul>
 			</li>
+			<!-- Hack-kind -->
 			<li class="cat-menu">
 				<button>Hack-kind</button>
 				<ul class="sub-menu">
 					<li class="non-active">
-						<button>Service Fixes</button>
+						<button on:click={() => ($activeTool = 'services-hack')}>Service Fixes</button>
 					</li>
 					<li class="non-active">
 						<button>Highlights Fixes</button>
@@ -73,6 +76,8 @@
 			<NavColoring />
 		{:else if $activeTool === 'downloads'}
 			<Downloads />
+		{:else if $activeTool === 'services-hack'}
+			<ServicesHack />
 		{/if}
 	</main>
 </div>
