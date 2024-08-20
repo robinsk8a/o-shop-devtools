@@ -19,3 +19,10 @@ export function copyToClipboard(text) {
 </script>
 
 <button on:click={() => copyToClipboard(text)}>Copy to Clipboard</button>
+
+<style>
+	button {
+		margin-block: 1rem;
+	}
+	
+</style>

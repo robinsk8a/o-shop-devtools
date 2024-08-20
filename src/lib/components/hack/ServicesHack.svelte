@@ -1,181 +1,237 @@
-<div style="position: relative;">
-	<!-- Fist css adaptable container -->
-	<!-- the FSLAxx class is for the container -->
-	<div class="sc-eXsaLi fSLAxx MuiBox-root css-0" data-testid="section-wrapper">
-		<!-- Fist flex container used just for center the element -->
-		<div class="MuiBox-root css-gmuwbf">
-			<div
-				class="MuiContainer-root MuiContainer-maxWidthLg sc-jXbUNg cXlowt sc-kbdlSk bhwMBs css-134smbk"
-				data-testid="container-section-wrapper"
-			>
-				<!-- ================================================================= -->
-				<!-- Second flex container used to define the elements layout -->
-				<div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1n6kzm8">
+<script>
+	import Highlight from 'svelte-highlight';
+	import css from 'svelte-highlight/languages/css';
+	import { atlas } from 'svelte-highlight/styles';
+	import Copy2Clipboard from '../Copy2Clipboard.svelte';
+
+	// let comaSecond = highlighterInit()
+	// onMount(highlighterInit)
+
+	let itemNum = 4;
+	$: colNum = 4;
+	let gridAutoFlow = false;
+
+	let backgroundColorRed = 'background-color: red;';
+	
+	let layoutStyle = 'inline';
+	$: secondRowExtended = layoutStyle === 'second-row-extended'? `grid-column: span ${itemNum - 1};`: '';
+	
+	/**
+	 * Handle layout change event
+	 * @param {Event} event - The change event from the select input
+	 */
+	function handleLayoutChange(event) {
+		layoutStyle = event.target.value;
+		switch (layoutStyle) {
+			case 'inline':
+				colNum = itemNum;
+				gridAutoFlow = false;
+				break;
+			case 'rows2':
+				colNum = 2;
+				gridAutoFlow = true;
+				break;
+			case 'second-row-extended':
+				if (itemNum < 3) {
+					itemNum = 3;
+				} else {
+					colNum = itemNum - 1;
+					gridAutoFlow = true;
+					break;
+				}
+		}
+	}
+
+	const servicesItems = [
+		{
+			id: '88fca8fe-a8a6-4872-82a6-2be5888e877d',
+			imgSrc: 'images/samples/bathroom.jpg',
+			alt: 'Bathroom',
+			title: 'Bathroom',
+			subtitle: 'Test text',
+			description: 'Test description',
+			buttonText: 'Learn More'
+		},
+		{
+			id: 'eeb0a749-ca9a-4e81-9890-e58556c3d0de',
+			imgSrc: 'images/samples/mattress_hp.jpg',
+			alt: 'Mattresses',
+			title: 'Mattresses',
+			subtitle: 'Test subheading',
+			description: 'Test Description',
+			buttonText: 'View More'
+		},
+		{
+			id: '97f99ae7-d01e-4643-a8ca-7419fae26269',
+			imgSrc: 'images/samples/ironwork.jpg',
+			alt: 'Custom Iron Doors & Windows',
+			title: 'Custom Iron Doors & Windows',
+			subtitle: '',
+			description: '',
+			buttonText: 'Shop Now'
+		},
+		{
+			id: '8649bc55-9a58-4162-a57e-1b40de0dbf46',
+			imgSrc:
+				'images/samples/frog-pad-showroom.jpg',
+			alt: 'OWN YOUR OWN FROG PAG KITCHEN AND BATH DESIGNER SHOWROOM',
+			title: 'OWN YOUR OWN FROG PAG KITCHEN AND BATH DESIGNER SHOWROOM',
+			subtitle: '',
+			description: '',
+			buttonText: 'Shop Now'
+		}
+	];
+
+	let hackCss = `& > div {
+  & > div {
+    & > div {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr auto;
+      & > div {
+        max-width: 100%;
+        grid-row: span 2;
+        display: grid;
+        grid-template-rows: subgrid;
+        & > div {
+          grid-row: span 2;
+          display: grid;
+          grid-template-rows: subgrid;
+        }
+      }
+    }
+  }
+}
+}`;
+
+	let codeIndent = 3;
+
+	$: contentContainer = `display: grid;
+${'	'.repeat(codeIndent)}grid-template-columns: repeat(${layoutStyle === 'inline' ? itemNum : colNum}, 1fr);
+${'	'.repeat(codeIndent)}grid-template-rows: 1fr auto; ${gridAutoFlow ? '\n\t\t\tgrid-auto-flow: row;' : ''}`;
+
+	let childContainerOne = `max-width: 100%;
+  ${'	'.repeat(codeIndent + 1)}grid-row: span 2;
+  ${'	'.repeat(codeIndent + 1)}display: grid;
+  ${'	'.repeat(codeIndent + 1)}grid-template-rows: subgrid;`;
+
+	let childContainerTwo = `grid-row: span 2;
+  ${'	'.repeat(codeIndent + 2)}display: grid;
+  ${'	'.repeat(codeIndent + 2)}grid-template-rows: subgrid;`;
+
+	$: finalCSS = `& > div {
+	& > div {
+		& > div {
+			${contentContainer}
+			${layoutStyle === 'second-row-extended' ? `& > div:last-child {${secondRowExtended}}` : ''}
+			& > div {
+				${childContainerOne}
+				& > div {
+					${childContainerTwo}
+				}
+			}
+			@media screen and (max-width: 1005px) {
+				display: grid;
+				grid-template-columns: 1fr;
+				${layoutStyle === 'second-row-extended' ? '& > * { grid-column: span 1; }' : ''}
+			}
+		}
+	}
+}`;
+</script>
+
+<svelte:head>
+	{@html atlas}
+</svelte:head>
+
+<form class="services-section-manager">
+	<label for="col-num">Number of items</label>
+	<input id="col-num" type="number" min="1" max="4" bind:value={itemNum} />
+	<input id="col-num" type="range" min="1" max="4" bind:value={itemNum} />
+	<label for="layout">Select Layout Style</label>
+	<select name="layout" id="layout" bind:value={layoutStyle} on:change={handleLayoutChange}>
+		<option value="inline">Inline (default)</option>
+		<option value="rows2">2 rows</option>
+		<!-- <option value="second-row-extended">2nd line extended</option> -->
+	</select>
+</form>
+<Copy2Clipboard text={finalCSS} />
+
+<Highlight language={css} code={finalCSS} class="code-box" />
+
+<div class="srvice-section-liveview">
+	<div style="position: relative;">
+		<!-- Fist css adaptable container -->
+		<!-- the FSLAxx class is for the container -->
+		<div class="sc-eXsaLi fSLAxx MuiBox-root css-0" data-testid="section-wrapper">
+			<!-- Fist flex container used just for center the element -->
+			<div class="MuiBox-root css-gmuwbf">
+				<div
+					class="MuiContainer-root MuiContainer-maxWidthLg sc-jXbUNg cXlowt sc-kbdlSk bhwMBs css-134smbk"
+					data-testid="container-section-wrapper"
+				>
+					<!-- ================================================================= -->
+					<!-- Second flex container used to define the elements layout -->
 					<div
-						class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4 css-1br4gth"
+						class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-1n6kzm8"
+						style={contentContainer}
 					>
-						<div
-							class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root sc-dGCmGc hdmwwU sc-fIGJwM cTIRAs css-gq325o"
-							id="88fca8fe-a8a6-4872-82a6-2be5888e877d"
-							order="0"
-						>
-							<img
-								src="https://cdn.nmg-platform.com/thefrogpadappliances/media/services/bathroom.webp"
-								alt="Bathroom"
-								class="sc-deXhhX jywkkK sc-iA-DsXs jSjsGC"
-							/>
-							<div class="sc-kCMKrZ hZJDNg MuiBox-root css-0" align="left">
-								<h2
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fLbJvt sc-dQEtJz eyNmZl css-p2t810"
-									size="5"
-									type="secondary"
+						{#each servicesItems.slice(0, Math.min(Math.max(itemNum, 1), 4)) as item}
+							<div
+								class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4 css-1br4gth"
+								style={childContainerOne}
+							>
+								<div
+									class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root sc-dGCmGc hdmwwU sc-fIGJwM cTIRAs css-gq325o"
+									id={item.id}
+									style={childContainerTwo}
 								>
-									Bathroom
-								</h2>
-								<p
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fimmnS sc-imwsjW kjBNTA css-6cnsq1"
-									size="4"
-									type="main"
-								>
-									Test text
-								</p>
-								<p
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR hdvTJy css-p2t810"
-									type="main"
-								>
-									Test description
-								</p>
-								<div class="sc-dJiZtA bgdeH MuiBox-root css-0">
-									<a href="/"
-										><button
-											class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth sc-eqUAAy bstEwZ css-1efgpqj"
-											tabindex="0"
-											type="button"
-											appearance="white"
-											>Learn More<span class="MuiTouchRipple-root css-w0pj6f"></span></button
-										></a
-									>
+									<img
+										src={item.imgSrc}
+										alt={item.alt}
+										class="sc-deXhhX jywkkK sc-iA-DsXs jSjsGC"
+									/>
+									<div class="sc-kCMKrZ hZJDNg MuiBox-root css-0" align="left">
+										<h2
+											class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fLbJvt sc-dQEtJz eyNmZl css-p2t810"
+											size="5"
+											type="secondary"
+										>
+											{item.title}
+										</h2>
+										{#if item.subtitle}
+											<p
+												class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fimmnS sc-imwsjW kjBNTA css-6cnsq1"
+												size="4"
+												type="main"
+											>
+												{item.subtitle}
+											</p>
+										{/if}
+										{#if item.description}
+											<p
+												class="MuiTypography-root MuiTypography-body1 sc-fqkvVR hdvTJy css-p2t810"
+												type="main"
+											>
+												{item.description}
+											</p>
+										{/if}
+										<div class="sc-dJiZtA bgdeH MuiBox-root css-0">
+											<a href="/"
+												><button
+													class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth sc-eqUAAy bstEwZ css-1efgpqj"
+													tabindex="0"
+													type="button"
+													appearance="white"
+													>{item.buttonText}<span class="MuiTouchRipple-root css-w0pj6f"
+													></span></button
+												></a
+											>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div
-						class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4 css-1br4gth"
-					>
-						<div
-							class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root sc-dGCmGc hdmwwU sc-fIGJwM cTIRAs css-gq325o"
-							id="eeb0a749-ca9a-4e81-9890-e58556c3d0de"
-							order="0"
-						>
-							<img
-								src="https://cdn.nmg-platform.com/thefrogpadappliances/media/services/mattress_hp.webp"
-								alt="Mattresses"
-								class="sc-deXhhX jywkkK sc-iA-DsXs jSjsGC"
-							/>
-							<div class="sc-kCMKrZ hZJDNg MuiBox-root css-0" align="left">
-								<h2
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fLbJvt sc-dQEtJz eyNmZl css-p2t810"
-									size="5"
-									type="secondary"
-								>
-									Mattresses
-								</h2>
-								<p
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fimmnS sc-imwsjW kjBNTA css-6cnsq1"
-									size="4"
-									type="main"
-								>
-									Test subheading
-								</p>
-								<p
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR hdvTJy css-p2t810"
-									type="main"
-								>
-									Test Description
-								</p>
-								<div class="sc-dJiZtA bgdeH MuiBox-root css-0">
-									<a href="/"
-										><button
-											class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth sc-eqUAAy bstEwZ css-1efgpqj"
-											tabindex="0"
-											type="button"
-											appearance="white"
-											>View More<span class="MuiTouchRipple-root css-w0pj6f"></span></button
-										></a
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div
-						class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4 css-1br4gth"
-					>
-						<div
-							class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root sc-dGCmGc hdmwwU sc-fIGJwM cTIRAs css-gq325o"
-							id="97f99ae7-d01e-4643-a8ca-7419fae26269"
-							order="0"
-						>
-							<img
-								src="https://cdn.nmg-platform.com/thefrogpadappliances/media/services/ironwork.webp"
-								alt="Custom Iron Doors &amp; Windows"
-								class="sc-deXhhX jywkkK sc-iA-DsXs jSjsGC"
-							/>
-							<div class="sc-kCMKrZ hZJDNg MuiBox-root css-0" align="left">
-								<h2
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fLbJvt sc-dQEtJz eyNmZl css-p2t810"
-									size="5"
-									type="secondary"
-								>
-									Custom Iron Doors &amp; Windows
-								</h2>
-								<div class="sc-dJiZtA bgdeH MuiBox-root css-0">
-									<a href="/"
-										><button
-											class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth sc-eqUAAy bstEwZ css-1efgpqj"
-											tabindex="0"
-											type="button"
-											appearance="white"
-											>Shop Now<span class="MuiTouchRipple-root css-w0pj6f"></span></button
-										></a
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div
-						class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4 css-1br4gth"
-					>
-						<div
-							class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root sc-dGCmGc hdmwwU sc-fIGJwM cTIRAs css-gq325o"
-							id="8649bc55-9a58-4162-a57e-1b40de0dbf46"
-							order="0"
-						>
-							<img
-								src="https://cdn.nmg-platform.com/thefrogpadappliances/media/services/frog-pad-showroom.webp"
-								alt="OWN YOUR OWN FROG PAG KITCHEN AND BATH DESIGNER SHOWROOM"
-								class="sc-deXhhX jywkkK sc-iA-DsXs jSjsGC"
-							/>
-							<div class="sc-kCMKrZ hZJDNg MuiBox-root css-0" align="left">
-								<h2
-									class="MuiTypography-root MuiTypography-body1 sc-fqkvVR fLbJvt sc-dQEtJz eyNmZl css-p2t810"
-									size="5"
-									type="secondary"
-								>
-									OWN YOUR OWN FROG PAG KITCHEN AND BATH DESIGNER SHOWROOM
-								</h2>
-								<div class="sc-dJiZtA bgdeH MuiBox-root css-0">
-									<a href="/"
-										><button
-											class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSm MuiButton-containedSizeSm MuiButton-fullWidth sc-eqUAAy bstEwZ css-1efgpqj"
-											tabindex="0"
-											type="button"
-											appearance="white"
-											>Shop Now<span class="MuiTouchRipple-root css-w0pj6f"></span></button
-										></a
-									>
-								</div>
-							</div>
-						</div>
+						{/each}
 					</div>
 				</div>
 			</div>
@@ -264,7 +320,7 @@
 	.fSLAxx {
 		padding-top: 1.5rem;
 		color: rgb(0, 0, 0);
-		background: green;
+		background-color: #d1d1d1;
 	}
 	/* Fist css adaptable container */
 	/* ======================================================================== */
@@ -402,6 +458,7 @@
 	/* Class that defines the layout of the elements */
 	.cTIRAs {
 		background: skyblue;
+		
 	}
 	/* Class that defines the layout of the elements */
 	/* ========================================================================= */
@@ -707,4 +764,9 @@
 		cursor: pointer;
 	}
 	/* Button */
+
+	.services-section-manager {
+		margin: 1rem;
+	}
 </style>
+

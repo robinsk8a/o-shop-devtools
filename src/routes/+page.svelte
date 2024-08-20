@@ -54,7 +54,7 @@
 			<li class="cat-menu">
 				<button>Hack-kind</button>
 				<ul class="sub-menu">
-					<li class="non-active">
+					<li>
 						<button on:click={() => ($activeTool = 'services-hack')}>Service Fixes</button>
 					</li>
 					<li class="non-active">
