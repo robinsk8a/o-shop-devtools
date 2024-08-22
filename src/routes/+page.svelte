@@ -36,17 +36,17 @@
 			<li class="cat-menu">
 				<button>Utilities</button>
 				<ul class="sub-menu">
-					<li class="non-active">
-						<button>Video / Embed generator</button>
-					</li>
-					<li class="non-active">
-						<button>Galery generator</button>
-					</li>
 					<li>
 						<button
 							class={$activeTool === 'nav-coloring' ? 'active' : ''}
 							on:click={() => ($activeTool = 'nav-coloring')}>Nav Coloring</button
 						>
+					</li>
+					<li class="non-active">
+						<button>Video / Embed generator</button>
+					</li>
+					<li class="non-active">
+						<button>Galery generator</button>
 					</li>
 				</ul>
 			</li>
@@ -55,7 +55,10 @@
 				<button>Hack-kind</button>
 				<ul class="sub-menu">
 					<li>
-						<button on:click={() => ($activeTool = 'services-hack')}>Service Fixes</button>
+						<button
+							class={$activeTool === 'services-hack' ? 'active' : ''}
+							on:click={() => ($activeTool = 'services-hack')}>Service Fixes</button
+						>
 					</li>
 					<li class="non-active">
 						<button>Highlights Fixes</button>
