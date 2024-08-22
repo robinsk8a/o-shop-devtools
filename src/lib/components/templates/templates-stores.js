@@ -183,7 +183,7 @@ export const synchronyHtml = derived([organizationName, synchImagesLink, locatio
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <!-- VERY IMPORTANT Change this link for the one on your page, it will look the same but the code at the end varys -->
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-        <a href="https://www.mysynchrony.com/mmc/NS225154900" target="_blank"
+        <a href="https://www.mysynchrony.com/mmc${synchUrlCode}" target="_blank"
           >APPLY NOW</a
         >
       </div>
