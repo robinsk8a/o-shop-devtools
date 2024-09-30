@@ -37,6 +37,7 @@
 	</div>
 </div> -->
 <script>
+	import Tiptab from '$lib/Tiptab.svelte';
 	import Highlight from 'svelte-highlight';
 	import { css } from 'svelte-highlight/languages';
 	import vbscriptHtml from 'svelte-highlight/languages/vbscript-html';
@@ -73,6 +74,8 @@
 <svelte:head>
 	{@html atlas}
 </svelte:head>
+
+<Tiptab />
 
 <form on:submit|preventDefault={newVideo} class="my-3">
 	<input type="text" bind:value={url} />

@@ -5,6 +5,9 @@
 	import NavColoring from '$lib/components/utilities/NavColoring.svelte';
 	import Downloads from '$lib/components/templates/Downloads.svelte';
 	import ServicesHack from '$lib/components/hack/ServicesHack.svelte';
+	import MediaInfoExtractor from '$lib/components/utilities/MediaInfoExtractor.svelte';
+	import VideoLayouts from '$lib/components/utilities/VideoLayouts.svelte';
+	import ImageLooper from '$lib/components/utilities/ImageLooper.svelte';
 </script>
 
 <div class="body">
@@ -42,11 +45,28 @@
 							on:click={() => ($activeTool = 'nav-coloring')}>Nav Coloring</button
 						>
 					</li>
-					<li class="non-active">
-						<button>Video / Embed generator</button>
+					<li>
+						<button
+							class={$activeTool === 'video-generator' ? 'active' : ''}
+							on:click={() => ($activeTool = 'video-generator')}>Video / Embed generator</button
+						>
 					</li>
 					<li class="non-active">
 						<button>Galery generator</button>
+					</li>
+					<li>
+						<button
+							class={$activeTool === 'media-extractor' ? 'active' : ''}
+							on:click={() => ($activeTool = 'media-extractor')}
+							>Media Extractor (Iframes and images)</button
+						>
+					</li>
+					<li>
+						<button
+							class={$activeTool === 'image-looper' ? 'active' : ''}
+							on:click={() => ($activeTool = 'image-looper')}
+							>Image Looper (Custom Image Extractor)</button
+						>
 					</li>
 				</ul>
 			</li>
@@ -77,10 +97,16 @@
 			<EpicProtectTemp />
 		{:else if $activeTool === 'nav-coloring'}
 			<NavColoring />
-		{:else if $activeTool === 'downloads'}
-			<Downloads />
+		{:else if $activeTool === 'video-generator'}
+			<VideoLayouts />
+		{:else if $activeTool === 'media-extractor'}
+			<MediaInfoExtractor />
 		{:else if $activeTool === 'services-hack'}
 			<ServicesHack />
+		{:else if $activeTool === 'downloads'}
+			<Downloads />
+		{:else if $activeTool === 'image-looper'}
+			<ImageLooper />
 		{/if}
 	</main>
 </div>

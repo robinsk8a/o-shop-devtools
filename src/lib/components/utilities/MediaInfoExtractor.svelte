@@ -15,36 +15,32 @@
 	function extractContent(html) {
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(html, 'text/html');
-		const links = Array.from(doc.querySelectorAll('a')).map(a => a.href);
-		const images = Array.from(doc.querySelectorAll('img')).map(img => img.src);
-		const iframes = Array.from(doc.querySelectorAll('iframe')).map(iframe => iframe.src);
+		const links = Array.from(doc.querySelectorAll('a')).map((a) => a.href);
+		const images = Array.from(doc.querySelectorAll('img')).map((img) => img.src);
+		const iframes = Array.from(doc.querySelectorAll('iframe')).map((iframe) => iframe.src);
 
 		extractedContent = `
 			Links:
-			${links.map(link => `- ${link}`).join('\n')}
+			${links.map((link) => `- ${link}`).join('\n')}
 			
 			Images:
-			${images.map(src => `- ${src}`).join('\n')}
+			${images.map((src) => `- ${src}`).join('\n')}
 			
 			Iframes:
-			${iframes.map(src => `- ${src}`).join('\n')}
+			${iframes.map((src) => `- ${src}`).join('\n')}
 		`;
 	}
 
 	onMount(() => {
 		document.addEventListener('paste', handlePaste);
 	});
-
 </script>
 
 <h3>Hello and welcome to</h3>
 <h2>The Experimental Page</h2>
 
 <p>TextArea to HTML</p>
-<textarea
-	name="HTML Text Input"
-	bind:value={htmlContent}
-></textarea>
+<textarea name="HTML Text Input" bind:value={htmlContent}></textarea>
 
 <p>Extracted Content:</p>
 <pre>{extractedContent}</pre>
@@ -57,5 +53,3 @@
 		resize: vertical;
 	}
 </style>
-
-
