@@ -111,21 +111,40 @@
 		<img class="f-desktop" src="{synchImagesLink}/card-imageSYNC.webp" alt="Synchrony card image" />
 	</section>
 	<!-- Section with text in grey at the bottom of the benefits of the Synchrony element -->
-	<div class="credit-approval">
+	<section class="credit-approval">
+		<p>
+			<sup>1</sup>
+			<strong
+				>No Interest If Paid In Full Within 6 or 12 months on qualifying purchases with your
+				Synchrony HOME Credit Card. 6 months on purchases of $299-$1,998.99 or 12 months on
+				purchases of $1,999 or more. Interest will be charged to your account from the purchase date
+				if the promotional balance is not paid in full within the promotional period. Minimum
+				monthly payments required.</strong
+			> Qualifying purchase amount must be on one receipt. No interest will be charged on the promo balance
+			if you pay it off, in full, within the promo period. If you do not, interest will be charged on
+			the promo balance from the purchase date. The required minimum monthly payments may or may not
+			pay off the promo balance before the end of the promo period, depending on purchase amount, promo
+			length and payment allocation. Regular account terms apply to non-promo purchases and, aöer promo
+			period ends, to the promo balance. New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR
+			39.99%. Minimum Interest Charge $2. A promo fee will be charged equal to 2% of the amount financed
+			on an equal payment no interest promotion of 18 months or more. Existing cardholders: See your
+			credit card agreement terms. Subject to credit approval.
+		</p>
+		<p>
+			<sup>2</sup> New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR 39.99%. Minimum Interest Charge $2. A promo fee will be charged equal to 2% of the amount financed on an equal payment no interest promotion of 18 months or more. Existing cardholders: See your credit card agreement terms. Subject to credit approval
+		</p>
+		<p>
+			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent information on file. Your income will be used as a factor to determine eligibility for a credit limit increase.
+		</p>
 		<p>*Subject to credit approval.</p>
 		<p>
-			<sup>1</sup> Subject to credit approval. Minimum monthly payments required. Promotional financing
-			offers available at the time of purchase may vary by location. See store for details.
+			<a
+				href="https://www.synchrony.com/financing/home/seasonal-offers"
+				target="_blank"
+				title="Click here for seasonal offers">Click Here</a
+			> or see store for details.
 		</p>
-		<p>
-			<sup>2</sup> For new accounts: Purchase APR is 29.99%; Minimum Interest Charge is 2. Existing cardholders
-			should see their cardholder agreements for their applicable terms.
-		</p>
-		<p>
-			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent
-			information on file.
-		</p>
-	</div>
+	</section>
 	<!-- Section in blue background text and c2 in white and Synchrony word in yellos bold text -->
 	<div class="synchrony-manage-account blue-background">
 		<div class="manage-account__container">
@@ -377,7 +396,7 @@
 	.benefits__list {
 		grid-column: 2/4;
 		grid-row: 1/3;
-    font-size: clamp(1rem, 1.5vw, 1.5rem);
+		font-size: clamp(1rem, 1.5vw, 1.5rem);
 	}
 	/* This class display in two columns the list of benefits */
 	.two-columns {
@@ -391,10 +410,17 @@
 	}
 	/* Set the stiles for the element at the bottom of the benefits section in a grey font */
 	.credit-approval {
-		font-size: 0.8rem;
+		font-size: 1rem;
 		margin-inline: 3rem;
 		color: #777777;
 	}
+  .credit-approval > p {
+    margin-block: 2.5rem;
+  }
+  .credit-approval a {
+    color: inherit;
+    text-decoration: underline;
+  }
 	/* Styles for the section with blue background and whit call to action that says "APPLY NOW" */
 	.synchrony-manage-account {
 		width: 100%;
