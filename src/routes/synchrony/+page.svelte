@@ -424,7 +424,7 @@
 	.benefits__list {
 		grid-column: 2/4;
 		grid-row: 1/3;
-		font-size: clamp(1rem, 1.5vw, 1.5rem);
+		font-size: clamp(0.9rem, 1.5vw, 1.5rem);
 	}
 	/* This class display in two columns the list of benefits */
 	.two-columns {
@@ -507,10 +507,18 @@
 		margin-bottom: 2rem;
 		font-size: clamp(1rem, 1.8vw, 1.6rem);
 	}
-
+	.light-blue-background h3 {
+		font-size: 1.2em;
+		margin-block: 0 2rem;
+	}
 	.light-blue-background p, .light-blue-background li {
 		font-size: 1em;
 	}
+	.light-blue-background small {
+		display: inline-block;
+		margin-top: 2.5rem;
+	}
+
 	.f-desktop {
 		width: 100%;
 		display: block;
@@ -521,7 +529,7 @@
 	@media (max-width: 900px) {
 		.financing-section {
 			gap: 3rem;
-			padding: 0.2rem;
+			padding: 1rem;
 		}
 		.f-desktop {
 			display: none;
@@ -570,6 +578,7 @@
 		.benefits__list {
 			grid-column: 1/2;
 			grid-row: auto;
+			font-size: 1.1rem;
 		}
 		.synchrony-benefits img {
 			grid-column: 1/2;
