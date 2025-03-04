@@ -9,7 +9,7 @@
 	<!-- Fist image container having 2 imaage, one bor desktop and one for mobile -->
 	<section class="financing-banner">
 		<!-- Link for the financing page asociated -->
-		<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank">
+		<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank" title="Financing Available">
 			<!-- Desktop image -->
 			<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the desktop version which is the fist banner that ussually is used on the slider banner too -->
 			<img
@@ -189,7 +189,7 @@
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 				<!-- VERY IMPORTANT Change this link for the one on your page, it will look the same but the code at the end varys -->
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-				<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank">APPLY NOW</a>
+				<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank" title="MANAGE ACCOUNT">MANAGE ACCOUNT</a>
 			</div>
 		</div>
 	</section>
@@ -219,7 +219,7 @@
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 				<!-- VERY IMPORTANT Change the location for your store's location -->
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-				<a href="/locations{locationSlug}"
+				<a href="/locations{locationSlug}" title="Nearest Store Location"
 					>here to apply online or here to find your nearest participating store location</a
 				>
 			</p>
@@ -249,7 +249,7 @@
 				<p>
 					<strong>Pay Online:</strong>
 					<!-- IMPORTANT verify this link but it usully the same one -->
-					<a href="https://www.mysynchrony.com/mysyf/cmp-index.html">Click here</a> to manage your account
+					<a href="https://www.mysynchrony.com/mysyf/cmp-index.html" target="_blank">Click here</a> to manage your account
 					and make payments online.
 				</p>
 				<p>
