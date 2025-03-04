@@ -131,10 +131,15 @@
 			credit card agreement terms. Subject to credit approval.
 		</p>
 		<p>
-			<sup>2</sup> New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR 39.99%. Minimum Interest Charge $2. A promo fee will be charged equal to 2% of the amount financed on an equal payment no interest promotion of 18 months or more. Existing cardholders: See your credit card agreement terms. Subject to credit approval
+			<sup>2</sup> New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR 39.99%. Minimum Interest
+			Charge $2. A promo fee will be charged equal to 2% of the amount financed on an equal payment no
+			interest promotion of 18 months or more. Existing cardholders: See your credit card agreement terms.
+			Subject to credit approval
 		</p>
 		<p>
-			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent information on file. Your income will be used as a factor to determine eligibility for a credit limit increase.
+			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent
+			information on file. Your income will be used as a factor to determine eligibility for a credit
+			limit increase.
 		</p>
 		<p>*Subject to credit approval.</p>
 		<p>
@@ -146,12 +151,12 @@
 		</p>
 	</section>
 	<!-- Section in blue background text and c2 in white and Synchrony word in yellos bold text -->
-	<div class="synchrony-manage-account blue-background">
+	<section class="synchrony-manage-account blue-background">
 		<div class="manage-account__container">
 			<div class="manage-account__info">
-				<p>
+				<h5>
 					MANAGE YOUR ACCOUNT WITH <span class="yellow-bold">SYNCHRONY</span>
-				</p>
+				</h5>
 				<p>
 					Make payments, view your balance, update account information and schedule up to 12
 					payments at a time.
@@ -164,7 +169,7 @@
 				<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank">APPLY NOW</a>
 			</div>
 		</div>
-	</div>
+	</section>
 	<!-- Last section at the bottom with all the light blue blocks -->
 	<div class="synchrony-qa">
 		<!-- 1 -->
@@ -414,13 +419,13 @@
 		margin-inline: 3rem;
 		color: #777777;
 	}
-  .credit-approval > p {
-    margin-block: 2.5rem;
-  }
-  .credit-approval a {
-    color: inherit;
-    text-decoration: underline;
-  }
+	.credit-approval > p {
+		margin-block: 2.5rem;
+	}
+	.credit-approval a {
+		color: inherit;
+		text-decoration: underline;
+	}
 	/* Styles for the section with blue background and whit call to action that says "APPLY NOW" */
 	.synchrony-manage-account {
 		width: 100%;
@@ -436,12 +441,19 @@
 		margin: auto;
 	}
 	.manage-account__info {
-		max-width: 40rem;
+		max-width: 50rem;
 		margin-right: 2rem;
 		display: block;
+		font-size: clamp(1.3rem, 1.8vw, 2rem);
 	}
+
+	.manage-account__info h5 {
+		margin-block: 2rem;
+		font-size: 1em;
+	}
+
 	.manage-account__info p:last-child {
-		margin: 0;
+		margin-block: 2rem;
 	}
 	.yellow-bold {
 		font-weight: 700;
@@ -455,7 +467,9 @@
 		border: solid 0.2rem #fff;
 		padding: 0.5rem 1rem;
 		color: #fff;
+		font-size: clamp(1.3rem, 1.8vw, 2rem);
 		font-weight: 500;
+		transition: all 0.3s ease-in-out;
 	}
 	/* hover Styles for the call to action in the Manage block */
 	.manage-account__c2a a:hover {
@@ -468,6 +482,7 @@
 		padding: 2rem;
 		border-radius: 1rem;
 		margin-bottom: 2rem;
+		font-size: clamp(1rem, 1.8vw, 1.6rem);
 	}
 	.f-desktop {
 		width: 100%;
@@ -543,7 +558,7 @@
 			flex-direction: column;
 			text-align: center;
 			gap: 1.5rem;
-			padding: 4rem;
+			padding: 2rem;
 		}
 		.manage-account__container > * {
 			margin: 0;
