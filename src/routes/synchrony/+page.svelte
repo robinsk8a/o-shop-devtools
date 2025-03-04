@@ -171,7 +171,7 @@
 		</div>
 	</section>
 	<!-- Last section at the bottom with all the light blue blocks -->
-	<div class="synchrony-qa">
+	<section class="synchrony-qa">
 		<!-- 1 -->
 		<div class="light-blue-background">
 			<h3 class="bold-blue">
@@ -247,7 +247,7 @@
 				</p>
 			</div>
 		</div>
-	</div>
+	</section>
 </article>
 
 <style>
