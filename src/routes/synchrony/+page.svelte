@@ -12,11 +12,16 @@
 		<a href="https://www.mysynchrony.com{synchUrlCode}" target="_blank">
 			<!-- Desktop image -->
 			<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the desktop version which is the fist banner that ussually is used on the slider banner too -->
-			<img class="f-desktop" src="{synchImagesLink}/landing_heroSYNC.webp" />
+			<img
+				class="f-desktop lazyload"
+				loading="lazy"
+				src="{synchImagesLink}/landing_heroSYNC.webp"
+			/>
 			<!-- mobile image -->
 			<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the mobile version which is has a vertical aligned information -->
 			<img
-				class="f-mobile"
+				class="f-mobile lazyload"
+				loading="lazy"
 				src="{synchImagesLink}/landing_hero_mobile.webp"
 				alt="Promotional financing banner"
 			/>
@@ -27,14 +32,16 @@
 		<!-- Desktop image -->
 		<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the desktop version which is the one that fits across the screen -->
 		<img
-			class="f-desktop"
+			class="f-desktop lazyload"
+			loading="lazy"
 			src="{synchImagesLink}/below_heroSYNC.webp"
 			alt="Synchrony credit card accepted banner"
 		/>
 		<!-- Mobile image -->
 		<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the mobile version which is more square -->
 		<img
-			class="f-mobile"
+			class="f-mobile lazyload"
+			loading="lazy"
 			src="{synchImagesLink}/below_hero_mobile.webp"
 			alt="Synchrony credit card accepted banner"
 		/>
@@ -44,7 +51,12 @@
 		<!-- Top image whith Synchrony home text -->
 		<div class="info__top-img">
 			<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is used both for desktop and mobile and is the little Synchrony Home image displayed on top of the big numbers containers -->
-			<img src="{synchImagesLink}/synchrony-home-thumbSYNC.webp" alt="Synchrony home image" />
+			<img
+				class="lazyload"
+				loading="lazy"
+				src="{synchImagesLink}/synchrony-home-thumbSYNC.webp"
+				alt="Synchrony home image"
+			/>
 		</div>
 		<!-- Container with that organizes yellow otline and blue background blocks with its headers in a grid layout -->
 		<h3 class="info-header">
@@ -65,7 +77,8 @@
 			<!-- Synchrony Arrows images -->
 
 			<img
-				class="synchrony-arrows"
+				class="synchrony-arrows lazyload"
+				loading="lazy"
 				src="{synchImagesLink}/sync-arrows.webp"
 				alt="Synchrony arrows"
 			/>
@@ -83,7 +96,12 @@
 	<!-- container for Benefits of the Synchrony section with the credit card image at the bottom -->
 	<section class="synchrony-benefits">
 		<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets. This is the mobile version so it would be the one with just the credit card -->
-		<img class="f-mobile" src="{synchImagesLink}/card.webp" alt="Synchrony card image" />
+		<img
+			class="f-mobile lazyload"
+			loading="lazy"
+			src="{synchImagesLink}/card.webp"
+			alt="Synchrony card image"
+		/>
 		<h1 class="benefits__header">
 			BENEFITS OF THE <span class="bold-blue"
 				>SYNCHRONY HOME<sup>&trade;</sup><br />
@@ -108,7 +126,12 @@
 			</li>
 		</ul>
 		<!-- IMPORTANT change the src of the credit card image for the one on your site's media assets This is the desktop version so it would be the one with the card at the left side and a big line accross the width -->
-		<img class="f-desktop" src="{synchImagesLink}/card-imageSYNC.webp" alt="Synchrony card image" />
+		<img
+			class="f-desktop lazyload"
+			loading="lazy"
+			src="{synchImagesLink}/card-imageSYNC.webp"
+			alt="Synchrony card image"
+		/>
 	</section>
 	<!-- Section with text in grey at the bottom of the benefits of the Synchrony element -->
 	<section class="credit-approval">
