@@ -528,6 +528,10 @@ export const synchronyCss = `	/* container styling */
 		margin-bottom: 2rem;
 		font-size: clamp(1rem, 1.8vw, 1.6rem);
 	}
+
+	.light-blue-background p, .light-blue-background li {
+		font-size: 1em;
+	}
 	.f-desktop {
 		width: 100%;
 		display: block;
@@ -535,7 +539,7 @@ export const synchronyCss = `	/* container styling */
 	.f-mobile {
 		display: none;
 	}
-	@media (max-width: 1000px) {
+	@media (max-width: 900px) {
 		.financing-section {
 			gap: 3rem;
 			padding: 0.2rem;
