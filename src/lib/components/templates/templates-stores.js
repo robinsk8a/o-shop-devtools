@@ -118,7 +118,7 @@ export const synchronyHtml = derived([organizationName, synchImagesLink, locatio
 		<img
 			class="f-mobile lazyload"
 			loading="lazy"
-			src="{synchImagesLink}/card.webp"
+			src="${$synchImagesLink}/card.webp"
 			alt="Synchrony card image"
 		/>
 		<h1 class="benefits__header">
