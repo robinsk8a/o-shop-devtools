@@ -11,6 +11,9 @@ export const synchUrlCode = writable('/mmc/NS225154900');
 // Epic Protect Variables 
 export const epicProImg = writable('images/epic-protection-plans');
 
+// Synchrony Variables
+export const CPSorganizationName = writable('[Organization Name]');
+export const CPSImagesLink = writable('images/CPS-Warranty');
 
 // This export only admits the values: 'liveView', 'html', 'css', 'js'
 export const viewSelector = writable('liveView');
@@ -1432,3 +1435,221 @@ export const epicProtecJs = `const headersInteractives = () => {
   });
 };
 headersInteractives();`
+
+
+export const CPSWarrantyHtml = derived([CPSorganizationName, CPSImagesLink], ([$CPSorganizationName, $CPSImagesLink]) => {
+  let synchText = `<!-- Extended Warranty Page -->
+<div id="page-content-wrap" class="container-fluid px-0 cps-warranty-page">
+
+  <!-- HERO SECTION -->
+  <header class="position-relative" role="banner">
+    <picture>
+      <source srcset="https://images.webfronts.com/cache/wbmdoaumesekq.jpg" media="(max-width: 767.98px)">
+      <img class="img-fluid w-100" src="https://images.webfronts.com/cache/ckaxdmirniskr.png" alt="Extended Warranty hero banner showing appliances">
+    </picture>
+  </header>
+
+  <!-- BREADCRUMB NAVIGATION -->
+  <nav class="bg-light py-2" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/" aria-label="Go to home page">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Extended Warranty</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- INTRO SECTION -->
+  <section class="container py-5" aria-labelledby="intro-title">
+    <div class="text-center mb-5">
+      <h1 id="intro-title" class="fw-bold text-dark">
+        We’ve Partnered with CPS to Provide the Best Coverage for Your Appliances
+      </h1>
+    </div>
+
+    <div class="row align-items-start g-4">
+      <div class="col-md-3 text-center">
+        <a href="${$CPSImagesLink}/5 Years to Free Warranty 2025.pdf"
+           title="View 5 Years to Free Warranty PDF"
+           target="_blank"
+           rel="noopener noreferrer">
+          <img class="img-fluid rounded shadow-sm"
+               src="${$CPSImagesLink}/warranty.webp"
+               alt="Download the 5 Years to Free Warranty brochure PDF">
+        </a>
+      </div>
+
+      <div class="col-md-9">
+        <p>
+          At <strong>${$CPSorganizationName}</strong> we aim to please our customers and offer you the best possible protection for your appliances.
+          Our warranty company of choice is <strong>Consumer Priority Service (CPS)</strong>. Over the past 20 years, CPS has provided
+          reliable coverage to millions of customers.
+        </p>
+
+        <h2 class="h4 fw-semibold mt-4">Why Choose CPS?</h2>
+        <ul class="list-unstyled ps-3">
+          <li><span aria-hidden="true">✔</span> CPS is rated #1 in customer support and coverage.</li>
+          <li><span aria-hidden="true">✔</span> CPS extends the manufacturer’s warranty and covers the same issues.</li>
+          <li><span aria-hidden="true">✔</span> Only CPS offers 6 years of coverage for certain brands.</li>
+          <li><span aria-hidden="true">✔</span> Only factory-authorized servicers are used.</li>
+          <li><span aria-hidden="true">✔</span> CPS call center is located in the United States.</li>
+          <li><span aria-hidden="true">✔</span> There’s no deductible.</li>
+          <li><span aria-hidden="true">✔</span> If your appliance cannot be repaired, it will be replaced.</li>
+          <li><span aria-hidden="true">✔</span> The warranty cost is a fraction of out-of-pocket repair expenses.</li>
+          <li>
+            <span aria-hidden="true">✔</span>
+            High-end appliances deserve premium warranties. <strong>${$CPSorganizationName}</strong> provides in-house warranty support.
+            Should your 5-year CPS extended warranty go unused, you can apply the full warranty cost toward a new purchase within 18 months.<br>
+            <em>*Select brands only. Terms and conditions apply.</em>
+          </li>
+        </ul>
+
+        <h2 class="h4 fw-semibold mt-5">Protect Appliances You Already Purchased!</h2>
+        <p>
+          Forgot to add extended warranty protection at time of purchase? You can still add a CPS warranty for up to 10 months after purchase.
+          Contact our warranty specialist today!
+        </p>
+
+        <address class="fw-bold mb-0">
+          <a class="text-decoration-none text-dark" href="mailto:warranty@ABWappliances.com">
+            warranty@ABWappliances.com
+          </a><br>
+          <span>301-873-1223</span>
+        </address>
+      </div>
+    </div>
+  </section>
+
+  <!-- CPS COVERAGE SECTION -->
+  <section class="bg-light py-5" aria-labelledby="coverage-title">
+    <div class="container">
+      <h2 id="coverage-title" class="text-center fw-bold text-dark mb-5">
+        What to Expect with Your CPS Coverage
+      </h2>
+
+      <ul class="row g-4 text-center list-unstyled">
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/checkmark.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">Mirror of your product’s original OEM warranty</h3>
+          <p>You’ll be covered for the same malfunctions your product’s manufacturer covers in the first year.</p>
+        </li>
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/wrench.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">Full parts and labor coverage</h3>
+          <p>You’ll be covered for 100% of parts and labor costs on eligible claims.</p>
+        </li>
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/warn-triangle.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">Coverage from error codes</h3>
+          <p>CPS will assist with error codes that indicate a malfunction in your unit.</p>
+        </li>
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/home.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">In-home service at time of claim</h3>
+          <p>A service technician will visit your home to perform repairs.</p>
+        </li>
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/approved.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">Authorized repair service</h3>
+          <p>A local CPS-authorized technician trained for your brand will complete repairs.</p>
+        </li>
+        <li class="col-md-4">
+          <img class="mb-3 img-fluid" style="width: 60px;" src="${$CPSImagesLink}/financial.svg" alt="" role="presentation">
+          <h3 class="h5 fw-semibold">Replacement or money back</h3>
+          <p>If your product cannot be repaired, CPS will provide a check to purchase a replacement.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- WARRANTY INFO SECTION -->
+  <section class="container py-5" aria-labelledby="warranty-info-title">
+    <h2 id="warranty-info-title" class="visually-hidden">Additional Warranty Information</h2>
+
+    <div class="row g-5 align-items-start">
+      <div class="col-md-6">
+        <h3>Need Appliance Parts?</h3>
+        <p>
+          Our in-house parts department offers a large selection for all repair and replacement needs.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Delivery &amp; Installation</h3>
+        <p>
+          At <strong>${$CPSorganizationName}</strong>, our factory-trained installation crews deliver and install appliances in your home.
+          Every appliance is tested to ensure proper operation.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-5 align-items-center mt-4">
+      <div class="col-md-6">
+        <figure>
+          <img class="img-fluid rounded shadow-sm"
+               src="${$CPSImagesLink}/warranty-03.webp"
+               alt="A family cooking together in a bright kitchen">
+        </figure>
+      </div>
+      <div class="col-md-6">
+        <h3 class="text-dark">Warranty is transferable to a new owner</h3>
+        <p>If you sell your home or appliance, you may transfer the warranty to the new owner.</p>
+      </div>
+    </div>
+
+    <div class="row g-5 align-items-center mt-4 flex-md-row-reverse">
+      <div class="col-md-6">
+        <figure>
+          <img class="img-fluid rounded shadow-sm"
+               src="${$CPSImagesLink}/warranty-04.webp"
+               alt="A family in their kitchen preparing food">
+        </figure>
+      </div>
+      <div class="col-md-6">
+        <h3 class="text-dark">Warranty is renewable</h3>
+        <p>Once the CPS warranty period ends, you can renew your coverage contract.</p>
+      </div>
+    </div>
+  </section>
+</div>`;
+  return synchText;
+})
+
+export const CPSWarrantyCss = `cps-warranty-page h1, cps-warranty-page h2, cps-warranty-page h3 { scroll-margin-top: 5rem; }
+
+cps-warranty-page ul li { margin-bottom: 0.75rem; }
+
+cps-warranty-page a {
+  color: #6c7585;
+  text-decoration: none;
+}
+cps-warranty-page a:hover, a:focus {
+  color: #0a58ca;
+  text-decoration: none;
+  outline: 2px solid transparent;
+}
+
+cps-warranty-page address { font-style: normal; }
+
+cps-warranty-page figure img {
+  transition: transform 0.3s ease-in-out;
+}
+cps-warranty-page figure img:hover,
+cps-warranty-page figure img:focus {
+  transform: scale(1.02);
+}
+
+cps-warranty-page section.bg-light img {
+  transition: transform 0.3s ease-in-out;
+}
+
+cps-warranty-page .visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}`

@@ -1,6 +1,7 @@
 <script>
 	import SynchronyTemp from '$lib/components/templates/SynchronyTemp.svelte';
 	import EpicProtectTemp from '$lib/components/templates/EpicProtectTemp.svelte';
+	import CPSWarranty from '$lib/components/templates/CPSWarranty.svelte';
 	import { activeTool } from '$lib/components/templates/templates-stores';
 	import NavColoring from '$lib/components/utilities/NavColoring.svelte';
 	import Downloads from '$lib/components/templates/Downloads.svelte';
@@ -31,6 +32,12 @@
 						<button
 							class={$activeTool === 'epic-protect-template' ? 'active' : ''}
 							on:click={() => ($activeTool = 'epic-protect-template')}>Epic Protect</button
+						>
+					</li>
+					<li>
+						<button
+							class={$activeTool === 'CPS-template' ? 'active' : ''}
+							on:click={() => ($activeTool = 'CPS-template')}>CPS Warranty</button
 						>
 					</li>
 				</ul>
@@ -95,6 +102,8 @@
 			<SynchronyTemp />
 		{:else if $activeTool === 'epic-protect-template'}
 			<EpicProtectTemp />
+		{:else if $activeTool === 'CPS-template'}
+			<CPSWarranty />
 		{:else if $activeTool === 'nav-coloring'}
 			<NavColoring />
 		{:else if $activeTool === 'video-generator'}
