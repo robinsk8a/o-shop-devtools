@@ -160,31 +160,14 @@ export const synchronyHtml = derived([organizationName, synchImagesLink, locatio
 		<p>
 			<sup>1</sup>
 			<strong
-				>No Interest If Paid In Full Within 6 or 12 months on qualifying purchases with your
-				Synchrony HOME Credit Card. 6 months on purchases of $299-$1,998.99 or 12 months on
-				purchases of $1,999 or more. Interest will be charged to your account from the purchase date
-				if the promotional balance is not paid in full within the promotional period. Minimum
-				monthly payments required.</strong
-			> Qualifying purchase amount must be on one receipt. No interest will be charged on the promo balance
-			if you pay it off, in full, within the promo period. If you do not, interest will be charged on
-			the promo balance from the purchase date. The required minimum monthly payments may or may not
-			pay off the promo balance before the end of the promo period, depending on purchase amount, promo
-			length and payment allocation. Regular account terms apply to non-promo purchases and, aöer promo
-			period ends, to the promo balance. New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR
-			39.99%. Minimum Interest Charge $2. A promo fee will be charged equal to 2% of the amount financed
-			on an equal payment no interest promotion of 18 months or more. Existing cardholders: See your
-			credit card agreement terms. Subject to credit approval.
+				>No Interest If Paid in Full Within 6 or 12 months on qualifying purchases with your Synchrony HOME Credit Card. 6 months on purchases of $299–$1,998.99 or 12 months on purchases of $1,999 or more. Interest will be charged to your account from the purchase date if the promotional balance is not paid in full within the promotional period. Minimum monthly payments required.</strong
+			> Qualifying purchase amount must be on one receipt. No interest will be charged on the promo balance if you pay it off, in full, within the promo period. If you do not, interest will be charged on the promo balance from the purchase date. The required minimum monthly payments may or may not pay off the promo balance before the end of the promo period, depending on purchase amount, promo length and payment allocation. Regular account terms apply to non-promo purchases and, after promo period ends, to the promo balance. New Accounts as of 7/31/25: Purchase APR 34.99%. Penalty APR 39.99%. Min Interest Charge $2. Existing cardholders: See your credit card agreement terms. Subject to credit approval.
 		</p>
 		<p>
-			<sup>2</sup> New Accounts as of 7/16/24: Purchase APR 34.99%. Penalty APR 39.99%. Minimum Interest
-			Charge $2. A promo fee will be charged equal to 2% of the amount financed on an equal payment no
-			interest promotion of 18 months or more. Existing cardholders: See your credit card agreement terms.
-			Subject to credit approval
+			<sup>2</sup> New Accounts as of 7/31/25: Purchase APR 34.99%. Penalty APR 39.99%. Min Interest Charge $2. Existing cardholders: See your credit card agreement terms. Subject to credit approval.
 		</p>
 		<p>
-			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent
-			information on file. Your income will be used as a factor to determine eligibility for a credit
-			limit increase.
+			<sup>3</sup> You may be required to provide your annual net income if we do not have your recent information on file. Your income will be used as a factor to determine eligibility for a credit limit increase.
 		</p>
 		<p>*Subject to credit approval.</p>
 		<p>
@@ -211,7 +194,7 @@ export const synchronyHtml = derived([organizationName, synchImagesLink, locatio
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 				<!-- VERY IMPORTANT Change this link for the one on your page, it will look the same but the code at the end varys -->
 				<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-				<a href="https://www.mysynchrony.com${$synchUrlCode}" target="_blank" title="MANAGE ACCOUNT">MANAGE ACCOUNT</a>
+				<a href="https://www.mysynchrony.com${$synchUrlCode}" target="_blank" title="Apply Now">APPLY NOW</a>
 			</div>
 		</div>
 	</section>
