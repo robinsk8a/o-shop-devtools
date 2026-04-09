@@ -9,13 +9,14 @@
 	import MediaInfoExtractor from '$lib/components/utilities/MediaInfoExtractor.svelte';
 	import VideoLayouts from '$lib/components/utilities/VideoLayouts.svelte';
 	import ImageLooper from '$lib/components/utilities/ImageLooper.svelte';
-	import { onMount } from 'svelte';
+	import ReviewShowcaseGen from '$lib/components/utilities/ReviewShowcaseGen.svelte';
+	import { onMount, tick } from 'svelte';
 
 	const DEFAULT_TOOL = 'synchrony-template';
 
 	const categoryMap = {
 		templates: ['synchrony-template', 'epic-protect-template', 'CPS-template'],
-		utilities: ['nav-coloring', 'video-generator', 'media-extractor', 'image-looper'],
+		utilities: ['nav-coloring', 'video-generator', 'media-extractor', 'image-looper', 'review-showcase'],
 		hack: ['services-hack']
 	};
 
@@ -117,6 +118,13 @@
 							>Image Looper (Custom Image Extractor)</a
 						>
 					</li>
+					<li>
+						<a
+							class="nav-link {$activeTool === 'review-showcase' ? 'active' : ''}"
+							href="#review-showcase"
+							>Review Showcase Generator</a
+						>
+					</li>
 				</ul>
 				{/if}
 			</li>
@@ -161,6 +169,8 @@
 			<Downloads />
 		{:else if $activeTool === 'image-looper'}
 			<ImageLooper />
+		{:else if $activeTool === 'review-showcase'}
+			<ReviewShowcaseGen />
 		{/if}
 	</main>
 </div>
