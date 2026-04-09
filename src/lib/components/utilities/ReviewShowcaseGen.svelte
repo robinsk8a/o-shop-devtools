@@ -17,9 +17,9 @@
 	let currentHtml = '';
 	let currentCss = '';
 
-	const starSvg = `<svg viewBox="0 0 24 24" fill="#FFC107" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
-	const quoteLeftSvg = `<svg fill="#ccc" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>`;
-	const quoteRightSvg = `<svg fill="#ccc" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>`;
+	const starSvg = `<span class="material-icons" style="color: #FFC107; font-size: 20px;">star</span>`;
+	const quoteLeftSvg = `<span class="material-icons" style="color: #ccc; font-size: 18px; transform: scaleX(-1); display: inline-block;">format_quote</span>`;
+	const quoteRightSvg = `<span class="material-icons" style="color: #ccc; font-size: 18px;">format_quote</span>`;
 
 	function getStarsHtml(rating) {
 		let num = parseInt(rating, 10);
@@ -35,11 +35,11 @@
 	function getSiteIconHtml(site) {
 		const siteLower = (site || '').toLowerCase();
 		if (siteLower.includes('google')) {
-			return '<img src="https://img.freepik.com/free-psd/adorable-yellow-rubber-ducky-toy-bath-time-fun_191095-77534.jpg?semt=ais_hybrid&w=740&q=80" alt="Google Logo" class="site-icon-img">';
+			return '<img src="https://cdn.nmg-platform.com/Global/additional-resources/reviews/google.svg" alt="Google Logo" class="site-icon-img">';
 		} else if (siteLower.includes('facebook')) {
-			return '<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Logo" class="site-icon-img">';
+			return '<img src="https://cdn.nmg-platform.com/Global/additional-resources/reviews/facebook.svg" alt="Facebook Logo" class="site-icon-img">';
 		} else if (siteLower.includes('yelp')) {
-			return '<img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Yelp_Logo.svg" alt="Yelp Logo" class="site-icon-img">';
+			return '<img src="https://cdn.nmg-platform.com/Global/additional-resources/reviews/yelp.svg" alt="Yelp Logo" class="site-icon-img">';
 		}
 		// default fallback
 		const siteCap = site ? site.charAt(0).toUpperCase() + site.slice(1) : 'Review';
@@ -207,7 +207,9 @@
   </div>\n`;
 		});
 		html += '</div>';
-		const css = `.reviews-s1-container {
+		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.reviews-s1-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -297,7 +299,9 @@
 		});
 		html += '</div>';
 
-		const css = `.reviews-s2-container {
+		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.reviews-s2-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -355,7 +359,9 @@
 		});
 		html += '</div>';
 
-		const css = `.reviews-s3-container {
+		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.reviews-s3-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
@@ -408,6 +414,9 @@
 	}
 
 	$: {
+		// Trigger reactivity on reviewLimit changes
+		reviewLimit;
+
 		let res = { html: '', css: '' };
 		if (parsedReviews.length > 0) {
 			if (selectedStyle === '1') res = generateStyle1();
