@@ -9,6 +9,49 @@
 	import MediaInfoExtractor from '$lib/components/utilities/MediaInfoExtractor.svelte';
 	import VideoLayouts from '$lib/components/utilities/VideoLayouts.svelte';
 	import ImageLooper from '$lib/components/utilities/ImageLooper.svelte';
+	import { onMount } from 'svelte';
+
+	const DEFAULT_TOOL = 'synchrony-template';
+
+	const categoryMap = {
+		templates: ['synchrony-template', 'epic-protect-template', 'CPS-template'],
+		utilities: ['nav-coloring', 'video-generator', 'media-extractor', 'image-looper'],
+		hack: ['services-hack']
+	};
+
+	/** @type {Record<string, boolean>} */
+	let openCategories = { templates: true, utilities: false, hack: false };
+
+	function toggle(cat) {
+		openCategories[cat] = !openCategories[cat];
+	}
+
+	function getHashTool() {
+		const hash = window.location.hash.replace('#', '').trim();
+		return hash || DEFAULT_TOOL;
+	}
+
+	function autoOpenCategory(tool) {
+		for (const [cat, tools] of Object.entries(categoryMap)) {
+			if (tools.includes(tool)) {
+				openCategories[cat] = true;
+			}
+		}
+	}
+
+	onMount(() => {
+		const initial = getHashTool();
+		$activeTool = initial;
+		autoOpenCategory(initial);
+
+		const onHashChange = () => {
+			const tool = getHashTool();
+			$activeTool = tool;
+			autoOpenCategory(tool);
+		};
+		window.addEventListener('hashchange', onHashChange);
+		return () => window.removeEventListener('hashchange', onHashChange);
+	});
 </script>
 
 <div class="body">
@@ -16,85 +59,87 @@
 		<h3 class="side-bar--greetings">Greetings Tigers</h3>
 		<ul class="menu">
 			<li class="cat-menu">
-				<button
-					class={$activeTool === 'synchrony-template' || $activeTool === 'epic-protect-template'
-						? 'active'
-						: ''}>templates</button
-				>
+				<button class="cat-toggle" on:click={() => toggle('templates')}>templates</button>
+				{#if openCategories.templates}
 				<ul class="sub-menu">
 					<li>
-						<button
-							class={$activeTool === 'synchrony-template' ? 'active' : ''}
-							on:click={() => ($activeTool = 'synchrony-template')}>Synchrony</button
+						<a
+							class="nav-link {$activeTool === 'synchrony-template' ? 'active' : ''}"
+							href="#synchrony-template">Synchrony</a
 						>
 					</li>
 					<li>
-						<button
-							class={$activeTool === 'epic-protect-template' ? 'active' : ''}
-							on:click={() => ($activeTool = 'epic-protect-template')}>Epic Protect</button
+						<a
+							class="nav-link {$activeTool === 'epic-protect-template' ? 'active' : ''}"
+							href="#epic-protect-template">Epic Protect</a
 						>
 					</li>
 					<li>
-						<button
-							class={$activeTool === 'CPS-template' ? 'active' : ''}
-							on:click={() => ($activeTool = 'CPS-template')}>CPS Warranty</button
+						<a
+							class="nav-link {$activeTool === 'CPS-template' ? 'active' : ''}"
+							href="#CPS-template">CPS Warranty</a
 						>
 					</li>
 				</ul>
+				{/if}
 			</li>
 			<!-- Utilities -->
 			<li class="cat-menu">
-				<button>Utilities</button>
+				<button class="cat-toggle" on:click={() => toggle('utilities')}>Utilities</button>
+				{#if openCategories.utilities}
 				<ul class="sub-menu">
 					<li>
-						<button
-							class={$activeTool === 'nav-coloring' ? 'active' : ''}
-							on:click={() => ($activeTool = 'nav-coloring')}>Nav Coloring</button
+						<a
+							class="nav-link {$activeTool === 'nav-coloring' ? 'active' : ''}"
+							href="#nav-coloring">Nav Coloring</a
 						>
 					</li>
 					<li>
-						<button
-							class={$activeTool === 'video-generator' ? 'active' : ''}
-							on:click={() => ($activeTool = 'video-generator')}>Video / Embed generator</button
+						<a
+							class="nav-link {$activeTool === 'video-generator' ? 'active' : ''}"
+							href="#video-generator">Video / Embed generator</a
 						>
 					</li>
 					<li class="non-active">
 						<button>Galery generator</button>
 					</li>
 					<li>
-						<button
-							class={$activeTool === 'media-extractor' ? 'active' : ''}
-							on:click={() => ($activeTool = 'media-extractor')}
-							>Media Extractor (Iframes and images)</button
+						<a
+							class="nav-link {$activeTool === 'media-extractor' ? 'active' : ''}"
+							href="#media-extractor"
+							>Media Extractor (Iframes and images)</a
 						>
 					</li>
 					<li>
-						<button
-							class={$activeTool === 'image-looper' ? 'active' : ''}
-							on:click={() => ($activeTool = 'image-looper')}
-							>Image Looper (Custom Image Extractor)</button
+						<a
+							class="nav-link {$activeTool === 'image-looper' ? 'active' : ''}"
+							href="#image-looper"
+							>Image Looper (Custom Image Extractor)</a
 						>
 					</li>
 				</ul>
+				{/if}
 			</li>
 			<!-- Hack-kind -->
 			<li class="cat-menu">
-				<button>Hack-kind</button>
+				<button class="cat-toggle" on:click={() => toggle('hack')}>Hack-kind</button>
+				{#if openCategories.hack}
 				<ul class="sub-menu">
 					<li>
-						<button
-							class={$activeTool === 'services-hack' ? 'active' : ''}
-							on:click={() => ($activeTool = 'services-hack')}>Service Fixes</button
+						<a
+							class="nav-link {$activeTool === 'services-hack' ? 'active' : ''}"
+							href="#services-hack">Service Fixes</a
 						>
 					</li>
 					<li class="non-active">
 						<button>Highlights Fixes</button>
 					</li>
 				</ul>
+				{/if}
 			</li>
 		</ul>
 		<div class="downloads">
-			<button on:click={() => ($activeTool = 'downloads')}>Downloads</button>
+			<a class="nav-link" href="#downloads">Downloads</a>
 		</div>
 	</nav>
 	<main class="main">
@@ -190,6 +235,24 @@
 		color: white;
 		text-decoration: none;
 	}
+	.side-bar .nav-link {
+		display: block;
+		background-color: var(--side-bar-button-color);
+		border: none;
+		border-block: 1px solid #1a4e55;
+		color: white;
+		padding: 0.5rem;
+		padding-left: 2rem;
+		width: 100%;
+		text-align: left;
+		text-transform: capitalize;
+		cursor: pointer;
+		transform: translateX(0);
+		&:hover {
+			background-color: var(--side-bar-button-color-hover);
+			animation: sideJump 0.3s ease-in-out;
+		}
+	}
 	.side-bar li {
 		list-style: none;
 	}
@@ -210,19 +273,61 @@
 			animation: sideJump 0.3s ease-in-out;
 		}
 	}
-	.cat-menu > button {
-		font-size: 1.2rem;
-		font-weight: bold;
+	/* ── Category toggle buttons (top-level) ── */
+	.cat-toggle {
+		background-color: var(--side-bar-color);
+		border: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		color: rgba(255, 255, 255, 0.9);
+		padding: 0.8rem 1rem 0.8rem 1.2rem;
+		width: 100%;
+		text-align: left;
+		text-transform: uppercase;
+		font-size: 1.4rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		&::before {
+			content: '›';
+			font-size: 1.1rem;
+			line-height: 1;
+			transition: transform 0.2s ease;
+		}
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.06);
+		}
 	}
-	.sub-menu button {
-		margin-left: 0.6rem;
-		width: calc(100% - 0.6rem);
-		font-size: 1rem;
-		padding-left: 2rem;
-		border-radius: 0.4rem;
+	/* Rotate arrow when sub-menu is open */
+	.cat-menu:has(.sub-menu) .cat-toggle::before {
+		transform: rotate(90deg);
+	}
+
+	/* ── Sub-menu container ── */
+	.sub-menu {
+		background-color: rgba(0, 0, 0, 0.18);
+		border-left: 3px solid var(--side-bar-accent-color);
+		margin: 0;
+		padding: 0.3rem 0;
+	}
+
+	/* ── Sub-menu nav links ── */
+	.sub-menu .nav-link {
+		padding: 0.5rem 1rem 0.5rem 1.8rem;
+		font-size: 0.95rem;
+		font-weight: 400;
+		border-block: 1px solid rgba(0, 0, 0, 0.12);
+		background-color: transparent;
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.08);
+			animation: sideJump 0.3s ease-in-out;
+		}
 	}
 	.side-bar .active {
-		background-color: var(--side-bar-button-color-active);
+		background-color: var(--side-bar-button-color-active) !important;
+		border-left-color: var(--side-bar-accent-color);
 	}
 	.main {
 		padding: 2rem;
@@ -231,15 +336,16 @@
 		margin-top: auto;
 		margin-bottom: 2rem;
 		background-color: var(--side-bar-accent-color);
-		& > button {
+		& > .nav-link {
 			background-color: transparent;
-			color: hsl(var(--side-bar-color), 0.2);
+			color: white;
 			width: 100%;
 			height: 100%;
 			padding: 1rem 2rem;
 			border-radius: 0;
 			font-size: 1.4rem;
 			font-weight: 800;
+			border-block: none;
 		}
 		&:hover {
 			background-color: var(--side-bar-accent-color-hover);
