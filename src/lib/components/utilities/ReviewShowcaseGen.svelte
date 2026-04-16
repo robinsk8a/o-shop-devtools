@@ -3,6 +3,7 @@
 	import TemplateRender from '../templates/TemplateRender.svelte';
 	import ViewSelector from '../ViewSelector.svelte';
 	import { viewSelector } from '../templates/templates-stores';
+	import ReviewsSnipetGeneratiors from './ReviewsSnipetGeneratiors.svelte';
 	import { onMount, tick } from 'svelte';
 
 	let csvFile = null;
@@ -182,160 +183,77 @@
 	}
 
 	function generateStyle1() {
-		let html = '<div class="reviews-s1-container">\n';
+		let html = '<div class="container py-4">\n  <div class="d-flex flex-column gap-4">\n';
 		parsedReviews.slice(0, reviewLimit).forEach((rev) => {
 			let iconHtml = getSiteIconHtml(rev.site);
 
-			html += `  <div class="review-item-s1">
-    <div class="review-stars-s1">
-      ${getStarsHtml(rev.rating)}
-    </div>
-    <div class="review-text-s1">
-      <span class="r-quote-s1-l">${quoteLeftSvg}</span> ${rev.text} <span class="r-quote-s1-r">${quoteRightSvg}</span>
-    </div>
-    <div class="review-footer-s1">
-      <div class="reviewer-info-s1">
-        ${iconHtml}
-        <span class="separator-s1">|</span>
-        <span class="reviewer-name-s1">${rev.name}</span>
+			html += `    <div class="review-item-s1 border-bottom pb-4">
+      <div class="d-flex gap-1 mb-2">
+        ${getStarsHtml(rev.rating)}
       </div>
-      <div class="review-date-s1">${rev.date}</div>
-    </div>
-    <div class="review-reply-s1">
-      Thanks for sharing your experience!
-    </div>
-  </div>\n`;
+      <div class="fs-6 lh-base text-secondary mb-3">
+        <span class="d-inline-block opacity-50 mx-1">${quoteLeftSvg}</span> ${rev.text} <span class="d-inline-block opacity-50 mx-1">${quoteRightSvg}</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center small mb-3">
+        <div class="d-flex align-items-center gap-2">
+          ${iconHtml}
+          <span class="text-muted mx-1">|</span>
+          <span class="fw-bold text-dark">${rev.name}</span>
+        </div>
+        <div class="text-muted">${rev.date}</div>
+      </div>
+      <div class="p-3 border bg-light text-muted fst-italic small">
+        Thanks for sharing your experience!
+      </div>
+    </div>\n`;
 		});
-		html += '</div>';
+		html += '  </div>\n</div>';
 		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-.reviews-s1-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  font-family: sans-serif;
-}
-.review-item-s1 {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 1.5rem;
-}
-.review-item-s1:last-child {
-  border-bottom: none;
-}
-.review-stars-s1 {
-  margin-bottom: 0.8rem;
-  display: flex;
-  gap: 0.2rem;
-}
-.review-text-s1 {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #333;
-  margin-bottom: 1rem;
-}
-.r-quote-s1-l, .r-quote-s1-r {
-  display: inline-block;
-  opacity: 0.5;
-  margin: 0 4px;
-}
-.review-footer-s1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-  margin-bottom: 0.8rem;
-}
-.reviewer-info-s1 {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.reviewer-info-s1 i {
-  font-size: 1.1rem;
-}
 .site-icon-img {
   width: 16px;
   height: 16px;
   display: inline-block;
 }
-.separator-s1 {
-  color: #ccc;
-  margin: 0 0.1rem;
-}
-.reviewer-name-s1 {
-  font-weight: bold;
-  color: #222;
-}
-.review-date-s1 {
-  color: #888;
-}
-.review-reply-s1 {
-  background-color: #f7f7f7;
-  padding: 1rem;
-  border: 1px solid #eaeaea;
-  color: #aaa;
-  font-style: italic;
-  font-size: 0.85rem;
+.review-item-s1:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0;
 }`;
 		return { html, css };
 	}
 
 	function generateStyle2() {
-		let html = '<div class="reviews-s2-container">\n';
+		let html = '<div class="container py-4">\n  <div class="d-flex flex-column gap-3">\n';
 		parsedReviews.slice(0, reviewLimit).forEach((rev) => {
-			html += `  <div class="review-card-s2">
-    <div class="review-stars-s2">
-      ${getStarsHtml(rev.rating)}
-    </div>
-    <div class="review-text-s2">
-      "${rev.text}"
-    </div>
-    <div class="reviewer-name-s2">
-      - ${rev.name}
-    </div>
-  </div>\n`;
+			html += `    <div class="card">
+      <div class="card-body">
+        <div class="d-flex gap-1 mb-3">
+          ${getStarsHtml(rev.rating)}
+        </div>
+        <div class="lh-lg text-dark mb-4">
+          &ldquo;${rev.text}&rdquo;
+        </div>
+        <div class="small text-secondary fw-medium">
+          &mdash; ${rev.name}
+        </div>
+      </div>
+    </div>\n`;
 		});
-		html += '</div>';
+		html += '  </div>\n</div>';
 
 		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-.reviews-s2-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  font-family: serif;
-}
-.review-card-s2 {
-  border: 1px solid #eaeaea;
-  padding: 1.5rem 2rem;
-  border-radius: 4px;
-  background-color: #fff;
-}
-.review-stars-s2 {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 0.2rem;
-}
-.review-text-s2 {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #222;
-  margin-bottom: 1.5rem;
-}
-.reviewer-name-s2 {
-  font-size: 0.95rem;
-  color: #444;
-  font-weight: 500;
+.site-icon-img {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
 }`;
 		return { html, css };
 	}
 
 	function generateStyle3() {
-		let html = '<div class="reviews-s3-container">\n';
+		let html =
+			'<div class="container py-4">\n  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">\n';
 		parsedReviews.slice(0, reviewLimit).forEach((rev) => {
 			const words = rev.text.split(' ');
 			let limit = 7;
@@ -346,64 +264,26 @@
 				.replace(/[^a-zA-Z0-9 ]/g, '')
 				.toUpperCase();
 			let excerpt = rev.text.length > 150 ? rev.text.substring(0, 150) + '...' : rev.text;
-			html += `  <div class="review-grid-card-s3">
-    <div class="review-stars-s3">
-      ${getStarsHtml(rev.rating)}
-    </div>
-    <h3 class="review-title-s3">${title}</h3>
-    <p class="review-text-s3">${excerpt}</p>
-    <div class="reviewer-footer-s3">
-      <span class="name-s3">${rev.name}</span> <span class="site-detail-s3">${getSiteIconHtml(rev.site)} &middot; ${rev.year}</span>
-    </div>
-  </div>\n`;
+			html += `    <div class="col">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex gap-1 mb-3">
+            ${getStarsHtml(rev.rating)}
+          </div>
+          <h3 class="fw-bolder fs-6 text-dark mb-2">${title}</h3>
+          <p class="small lh-lg text-secondary flex-grow-1 mb-4">${excerpt}</p>
+          <div class="small fw-bold text-muted">
+            <span class="text-dark me-2">${rev.name}</span>
+            <span>${getSiteIconHtml(rev.site)} &middot; ${rev.year}</span>
+          </div>
+        </div>
+      </div>
+    </div>\n`;
 		});
-		html += '</div>';
+		html += '  </div>\n</div>';
 
 		const css = `@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-.reviews-s3-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: sans-serif;
-}
-.review-grid-card-s3 {
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-}
-.review-stars-s3 {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 0.2rem;
-}
-.review-title-s3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #111;
-}
-.review-text-s3 {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
-.reviewer-footer-s3 {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #777;
-}
-.name-s3 {
-  color: #000;
-  margin-right: 0.5rem;
-}
 .site-icon-img {
   width: 16px;
   height: 16px;
@@ -435,45 +315,69 @@
 </script>
 
 <section class="review-showcase-gen template-section">
-	<form class="rs-form temp-form" on:submit|preventDefault>
-		<div class="temp-item full-width">
-			<label for="csvUpload">Upload Reviews CSV</label>
-			<p>
-				Expected columns: <code
-					>Site, Date Created, Reviewer, Rating, Store Location, Review, Share</code
-				>
-			</p>
-			<input
-				type="file"
-				id="csvUpload"
-				accept=".csv"
-				bind:this={fileInput}
-				on:change={handleFileUpload}
-			/>
-			{#if errorMessage}
-				<div class="error-msg">{errorMessage}</div>
-			{/if}
+	<h2 class="h1 fw-bold mb-5">Review Showcase Generator</h2>
+
+	<!-- Helper Snippets Section -->
+	<div class="container-fluid mb-3 px-4">
+		<div class="mt-3 border rounded bg-white shadow-sm">
+			<ReviewsSnipetGeneratiors />
 		</div>
-		<div class="temp-item">
-			<label for="reviewLimit">Number of Reviews</label>
-			<input type="number" id="reviewLimit" bind:value={reviewLimit} min="1" max="100" />
-		</div>
-		<div class="temp-item">
-			<label for="styleSelect">Select Style</label>
-			<select id="styleSelect" bind:value={selectedStyle}>
-				<option value="1">Style 1 (Nielsen - Stacked List)</option>
-				<option value="2">Style 2 (Kerby's - Stacked Cards)</option>
-				<option value="3">Style 3 (Hannon - Grid Cards)</option>
-			</select>
+	</div>
+
+	<form class="temp-form" on:submit|preventDefault>
+		<div class="row g-4">
+			<div class="col-12">
+				<label class="form-label" for="csvUpload">Upload Reviews CSV</label>
+				<p class="mb-1">
+					Expected columns: <code
+						>Site, Date Created, Reviewer, Rating, Store Location, Review, Share</code
+					>
+				</p>
+				<input
+					class="form-control"
+					type="file"
+					id="csvUpload"
+					accept=".csv"
+					bind:this={fileInput}
+					on:change={handleFileUpload}
+				/>
+				{#if errorMessage}
+					<div class="alert alert-danger mt-2 mb-0 py-2 fw-medium" role="alert">
+						{errorMessage}
+					</div>
+				{/if}
+			</div>
+			<div class="col-12 col-md-6 d-flex flex-column gap-2">
+				<label class="form-label" for="reviewLimit">Number of Reviews</label>
+				<input
+					class="form-control"
+					type="number"
+					id="reviewLimit"
+					bind:value={reviewLimit}
+					min="1"
+					max="100"
+				/>
+			</div>
+			<div class="col-12 col-md-6 d-flex flex-column gap-2">
+				<label class="form-label" for="styleSelect">Select Style</label>
+				<select class="form-select" id="styleSelect" bind:value={selectedStyle}>
+					<option value="1">Style 1 (Nielsen - Stacked List)</option>
+					<option value="2">Style 2 (Kerby's - Stacked Cards)</option>
+					<option value="3">Style 3 (Hannon - Grid Cards)</option>
+				</select>
+			</div>
 		</div>
 	</form>
+
 	<ViewSelector />
 
 	<section class="template-viewer">
 		{#if parsedReviews.length === 0}
-			<div class="empty-state">Please upload a CSV file to generate reviews.</div>
+			<div class="py-5 text-center text-secondary fs-5">
+				Please upload a CSV file to generate reviews.
+			</div>
 		{:else if $viewSelector === 'liveView'}
-			<div class="live-preview-container">
+			<div class="live-preview-container p-4">
 				{@html '<style>' + currentCss + '</style>'}
 				{@html currentHtml}
 			</div>
@@ -486,6 +390,7 @@
 </section>
 
 <style>
+	/* Unique layout & brand styles not covered by Bootstrap */
 	.template-viewer {
 		max-height: 80svh;
 		overflow-y: auto;
@@ -494,47 +399,25 @@
 		background: #fff;
 		border: 1px solid #ddd;
 	}
-	.empty-state {
-		padding: 4rem;
-		text-align: center;
-		color: #777;
-		font-size: 1.2rem;
-	}
 	.live-preview-container {
-		padding: 2rem;
 		background: #fdfdfd;
 		color: #000;
 	}
 	.temp-form {
 		max-width: 1600px;
 		margin-inline: auto;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-		grid-gap: 1.5rem;
 		padding: 1.5rem 1rem;
-		font-size: 1rem;
 		color: rgb(1, 41, 28);
 	}
-	.full-width {
-		grid-column: 1 / -1;
-	}
-	.temp-form input[type='number'],
-	.temp-form select {
-		width: 100%;
-		box-sizing: border-box;
-		border: none;
+	/* Brand colors for form controls */
+	.temp-form .form-control,
+	.temp-form .form-select {
 		background-color: rgba(225, 255, 245, 0.418);
-		padding: 0.8rem;
 		color: rgb(4, 48, 33);
-		border-radius: 4px;
-		font-size: 1rem;
-	}
-	.temp-form input[type='file'] {
-		padding: 0.8rem 0;
+		border: none;
 	}
 	.temp-form p {
 		color: rgb(5, 122, 30);
-		margin: 0.2rem 0;
 		font-size: 0.9rem;
 	}
 	.temp-form p code {
@@ -543,23 +426,10 @@
 		border-radius: 3px;
 		color: #025721;
 	}
-	.temp-form label {
+	.temp-form .form-label {
 		font-size: 1.1rem;
 		color: rgb(0, 120, 189);
 		font-weight: bold;
-	}
-	.temp-item {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-	.error-msg {
-		background-color: #fee2e2;
-		color: #991b1b;
-		padding: 0.8rem;
-		border-radius: 4px;
-		border: 1px solid #f87171;
-		margin-top: 0.5rem;
-		font-weight: 500;
+		margin-bottom: 0;
 	}
 </style>
