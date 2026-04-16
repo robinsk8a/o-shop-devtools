@@ -12,7 +12,7 @@
 
 	const titleSnippet = `<div class="container mb-4">
 <h1 class="nmg-color-primary fw-bold h1">Reviews Showcase</h1>
-<hr class="mb-5"></div>`;
+<hr></div>`;
 </script>
 
 <div class="container py-4">
@@ -55,7 +55,7 @@
 	/* Scoped styles can go here if needed, but Bootstrap covers most styling */
 	pre {
 		margin-bottom: 0;
-        max-height: 9rem;
+		max-height: 9rem;
 	}
 	code {
 		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
