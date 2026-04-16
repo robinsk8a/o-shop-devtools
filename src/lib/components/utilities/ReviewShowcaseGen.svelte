@@ -94,8 +94,21 @@
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			try {
-				const text = reader.result;
-				const jsonData = parseCSV(typeof text === 'string' ? text : '');
+				const buffer = /** @type {ArrayBuffer} */ (reader.result);
+				if (!buffer) return;
+				let text = '';
+				
+				// Safely decode the file. If it contains invalid UTF-8 (like Excel's ANSI/Windows-1252 smart quotes),
+				// the fatal: true flag will throw an error, allowing us to fall back safely to windows-1252.
+				try {
+					const utf8Decoder = new TextDecoder('utf-8', { fatal: true });
+					text = utf8Decoder.decode(buffer);
+				} catch (err) {
+					const ansiDecoder = new TextDecoder('windows-1252');
+					text = ansiDecoder.decode(buffer);
+				}
+
+				const jsonData = parseCSV(text);
 				if (jsonData.length === 0) {
 					throw new Error('CSV file must contain a header row and at least one data row.');
 				}
@@ -179,7 +192,7 @@
 		reader.onerror = () => {
 			errorMessage = 'Error reading the file. Please try again.';
 		};
-		reader.readAsText(file);
+		reader.readAsArrayBuffer(file);
 	}
 
 	function generateStyle1() {
