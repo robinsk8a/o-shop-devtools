@@ -12,6 +12,13 @@
 	let parsedReviews = [];
 	let errorMessage = '';
 
+	// Normalize CSV state
+	/** @type {ArrayBuffer | null} */
+	let rawBuffer = null;
+	let rawFileName = 'reviews.csv';
+	let normalizeLimit = 30;
+	let normalizeStatus = '';
+
 	let fileInput;
 
 	// View/UI State
@@ -47,6 +54,51 @@
 		return `<img src="https://via.placeholder.com/20" alt="${siteCap} Logo" class="site-icon-img">`;
 	}
 
+	/**
+	 * Splits a single CSV line into cell values, respecting double-quoted fields.
+	 * Shared by parseCSV and normalizeRawCSV.
+	 * @param {string} line
+	 * @returns {string[]}
+	 */
+	function splitLine(line) {
+		const matches = line.match(/(?:^|,)("(?:[^"]|"")*"|[^,]*)/g) || [];
+		return matches.map((m) => {
+			let val = m.startsWith(',') ? m.substring(1) : m;
+			val = val.trim();
+			if (val.startsWith('"') && val.endsWith('"')) {
+				val = val.substring(1, val.length - 1).replace(/""/g, '"');
+			}
+			return val;
+		});
+	}
+
+	/**
+	 * Decodes ALL HTML entities in a string using the browser's own parser.
+	 * Handles &amp; → &, &lt; → <, &quot; → ", &#169; → ©, and every other
+	 * named/numeric entity — no hand-written list required.
+	 * @param {string} str
+	 * @returns {string}
+	 */
+	function decodeHtmlEntities(str) {
+		if (!str || !str.includes('&')) return str;
+		const el = document.createElement('textarea');
+		el.innerHTML = str;
+		return el.value;
+	}
+
+	/**
+	 * Serializes a single cell value back to CSV-safe format.
+	 * Wraps in double quotes and escapes internal quotes if needed.
+	 * @param {string} val
+	 * @returns {string}
+	 */
+	function cellToCSV(val) {
+		if (/[,"\n\r]/.test(val)) {
+			return '"' + val.replace(/"/g, '""') + '"';
+		}
+		return val;
+	}
+
 	function parseCSV(text) {
 		if (!text) return [];
 
@@ -55,19 +107,6 @@
 			.split(/\r?\n(?=(?:(?:[^"]*"){2})*[^"]*$)/)
 			.filter((line) => line.trim() !== '');
 		if (rowStrings.length < 2) return [];
-
-		// Split line by commas ignoring commas in double quotes
-		const splitLine = (line) => {
-			const matches = line.match(/(?:^|,)("(?:[^"]|"")*"|[^,]*)/g) || [];
-			return matches.map((m) => {
-				let val = m.startsWith(',') ? m.substring(1) : m;
-				val = val.trim();
-				if (val.startsWith('"') && val.endsWith('"')) {
-					val = val.substring(1, val.length - 1).replace(/""/g, '"');
-				}
-				return val;
-			});
-		};
 
 		const headers = splitLine(rowStrings[0]).map((h) => h.trim());
 		const jsonResult = [];
@@ -86,27 +125,100 @@
 		return jsonResult;
 	}
 
+	/**
+	 * Decodes an ArrayBuffer to a JS string using the browser's built-in
+	 * TextDecoder encoding tables — no hand-written character maps needed.
+	 * Tries strict UTF-8 first; if the bytes are not valid UTF-8 (e.g. a
+	 * Windows-1252 / Excel ANSI export) it falls back to windows-1252, which
+	 * has the complete WHATWG-standardised mapping for all 256 byte values
+	 * including €, ©, ñ, é, smart quotes, en/em dashes, &, @, etc.
+	 * @param {ArrayBuffer} buffer
+	 * @returns {string}
+	 */
+	function decodeBuffer(buffer) {
+		try {
+			return new TextDecoder('utf-8', { fatal: true }).decode(buffer);
+		} catch (_e) {
+			return new TextDecoder('windows-1252').decode(buffer);
+		}
+	}
+
+	/**
+	 * Normalizes a CSV from its raw ArrayBuffer: re-decodes to proper UTF-8,
+	 * drops exact duplicate rows, applies a row limit, and decodes HTML entities.
+	 * @param {ArrayBuffer} buffer
+	 * @param {number} limit  Maximum data rows to keep (0 = no limit)
+	 * @returns {{ csv: string; removed: number; total: number }}
+	 */
+	function normalizeRawCSV(buffer, limit = 0) {
+		const text = decodeBuffer(buffer);
+		const lines = text.split(/\r?\n/);
+		if (lines.length < 2) return { csv: text, removed: 0, total: 0 };
+
+		const headerCells = splitLine(lines[0]);
+		const dataLines = lines.slice(1).filter((l) => l.trim() !== '');
+
+		// Deduplicate
+		const seen = new Set();
+		const uniqueLines = [];
+		for (const line of dataLines) {
+			const key = line.toLowerCase().replace(/\s+/g, ' ').trim();
+			if (!seen.has(key)) {
+				seen.add(key);
+				uniqueLines.push(line);
+			}
+		}
+
+		const removed = dataLines.length - uniqueLines.length;
+
+		// Apply row limit after deduplication
+		const capped = limit > 0 ? uniqueLines.slice(0, limit) : uniqueLines;
+
+		// Decode HTML entities per-cell so &amp; → &, &lt; → <, etc.
+		const cleanRows = capped.map((line) => {
+			const cells = splitLine(line);
+			return cells.map((cell) => cellToCSV(decodeHtmlEntities(cell))).join(',');
+		});
+
+		const headerRow = headerCells.map((h) => cellToCSV(decodeHtmlEntities(h))).join(',');
+		const csv = [headerRow, ...cleanRows].join('\n');
+		return { csv, removed, total: capped.length };
+	}
+
+	function handleNormalizeCSV() {
+		if (!rawBuffer) {
+			normalizeStatus = 'Please upload a CSV file first.';
+			return;
+		}
+		const { csv, removed, total } = normalizeRawCSV(rawBuffer, normalizeLimit);
+		const bom = '\uFEFF';
+		const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		const baseName = rawFileName.replace(/\.csv$/i, '');
+		a.href = url;
+		a.download = `${baseName}_normalized.csv`;
+		a.click();
+		URL.revokeObjectURL(url);
+		normalizeStatus = `Done! ${total} rows exported, ${removed} duplicate${removed !== 1 ? 's' : ''} removed. File downloaded.`;
+	}
+
 	function handleFileUpload(event) {
 		errorMessage = '';
+		normalizeStatus = '';
 		const file = event.target.files[0];
 		if (!file) return;
+		rawFileName = file.name;
 
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			try {
 				const buffer = /** @type {ArrayBuffer} */ (reader.result);
 				if (!buffer) return;
-				let text = '';
-				
-				// Safely decode the file. If it contains invalid UTF-8 (like Excel's ANSI/Windows-1252 smart quotes),
-				// the fatal: true flag will throw an error, allowing us to fall back safely to windows-1252.
-				try {
-					const utf8Decoder = new TextDecoder('utf-8', { fatal: true });
-					text = utf8Decoder.decode(buffer);
-				} catch (err) {
-					const ansiDecoder = new TextDecoder('windows-1252');
-					text = ansiDecoder.decode(buffer);
-				}
+				// Store the raw bytes so the normalizer can re-decode them
+				// with the correct encoding (see decodeBuffer).
+				rawBuffer = buffer;
+				const text = decodeBuffer(buffer);
 
 				const jsonData = parseCSV(text);
 				if (jsonData.length === 0) {
@@ -354,6 +466,33 @@
 					bind:this={fileInput}
 					on:change={handleFileUpload}
 				/>
+				<div class="normalize-group mt-2">
+					<button
+						type="button"
+						class="btn btn-normalize"
+						on:click={handleNormalizeCSV}
+						title="Remove duplicates, decode HTML entities, apply row limit, then download as clean UTF-8 CSV."
+					>
+						<span class="material-icons" aria-hidden="true">auto_fix_high</span>
+						Normalize CSV
+					</button>
+					<div class="normalize-limit-wrap">
+						<label class="normalize-limit-label" for="normalizeLimit">Max rows</label>
+						<input
+							class="form-control normalize-limit-input"
+							type="number"
+							id="normalizeLimit"
+							bind:value={normalizeLimit}
+							min="12"
+							max="9999"
+						/>
+					</div>
+				</div>
+				{#if normalizeStatus}
+					<div class="alert alert-normalize mt-2 mb-0 py-2 fw-medium" role="status">
+						{normalizeStatus}
+					</div>
+				{/if}
 				{#if errorMessage}
 					<div class="alert alert-danger mt-2 mb-0 py-2 fw-medium" role="alert">
 						{errorMessage}
@@ -444,5 +583,59 @@
 		color: rgb(0, 120, 189);
 		font-weight: bold;
 		margin-bottom: 0;
+	}
+	/* Normalize group: limit input + button sit side by side */
+	.normalize-group {
+		display: flex;
+		align-items: flex-end;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+	.normalize-limit-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+	.normalize-limit-label {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: rgb(0, 120, 189);
+		line-height: 1;
+	}
+	.normalize-limit-input {
+		width: 5rem;
+		padding: 0.375rem 0.5rem;
+		font-size: 0.9rem;
+	}
+	.btn-normalize {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		background: linear-gradient(135deg, #0078bd 0%, #005a8e 100%);
+		color: #fff;
+		border: none;
+		border-radius: 0.4rem;
+		font-weight: 600;
+		font-size: 0.9rem;
+		padding: 0.4rem 0.9rem;
+		transition:
+			opacity 0.2s ease,
+			transform 0.15s ease;
+	}
+	.btn-normalize:hover {
+		opacity: 0.88;
+		transform: translateY(-1px);
+		color: #fff;
+	}
+	.btn-normalize .material-icons {
+		font-size: 1.1rem;
+	}
+	.alert-normalize {
+		background: #e8f5e9;
+		color: #1b5e20;
+		border: 1px solid #a5d6a7;
+		border-radius: 0.4rem;
+		padding: 0.4rem 0.75rem;
+		font-size: 0.875rem;
 	}
 </style>
