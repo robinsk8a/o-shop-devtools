@@ -1,5 +1,7 @@
 <script>
 	export let text = '';
+	/** Controls the button's margin-block. Accepts any valid CSS length (e.g. '0', '0.5rem'). */
+	export let marginBlock = '1rem';
 /**
  * Copies the given text to the clipboard and updates the button appearance for 1 second.
  *
@@ -18,11 +20,11 @@ export function copyToClipboard(text) {
 }
 </script>
 
-<button on:click={() => copyToClipboard(text)}>Copy to Clipboard</button>
+<button style:--mb={marginBlock} on:click={() => copyToClipboard(text)}>Copy to Clipboard</button>
 
 <style>
 	button {
-		margin-block: 1rem;
+		margin-block: var(--mb, 1rem);
 	}
 	
 </style>
